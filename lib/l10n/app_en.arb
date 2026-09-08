@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appTitle": "VisionAI",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}

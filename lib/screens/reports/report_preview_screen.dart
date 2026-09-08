@@ -1,0 +1,509 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:intl/intl.dart';
+import '../../models/eye_screening_result.dart';
+import '../../models/user_profile.dart';
+import '../../services/export_service.dart';
+import '../../services/firebase_service.dart';
+import '../../theme/app_theme.dart';
+
+class ReportPreviewScreen extends StatefulWidget {
+  final EyeScreeningResult result;
+  final String? imagePath;
+
+  const ReportPreviewScreen({
+    super.key,
+    required this.result,
+    this.imagePath,
+  });
+
+  @override
+  State<ReportPreviewScreen> createState() => _ReportPreviewScreenState();
+}
+
+class _ReportPreviewScreenState extends State<ReportPreviewScreen> {
+  final _firebaseService = FirebaseService();
+  UserProfile? _profile;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    try {
+      final profile = await _firebaseService.getUserProfile();
+      if (mounted) {
+        setState(() {
+          _profile = profile ?? UserProfile.defaultProfile();
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _profile = UserProfile.defaultProfile();
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Color _getSeverityColor() {
+    switch (widget.result.riskLevel) {
+      case RiskLevel.low:
+        return const Color(0xFF16A34A);
+      case RiskLevel.attention:
+        return const Color(0xFFD97706);
+      case RiskLevel.high:
+        return const Color(0xFFDC2626);
+    }
+  }
+
+  String _getSeverityLabel() {
+    switch (widget.result.riskLevel) {
+      case RiskLevel.low:
+        return "Mild Risk / Normal";
+      case RiskLevel.attention:
+        return "Moderate Risk";
+      case RiskLevel.high:
+        return "Severe Risk";
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    if (_isLoading) {
+      return const Scaffold(
+        backgroundColor: Color(0xFFF8FAFC),
+        body: Center(child: CircularProgressIndicator(color: AppTheme.primaryNavy)),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8FAFC), // Very light cool grey for paper feel
+      appBar: AppBar(
+        title: Text(
+          "Report Preview",
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: AppTheme.primaryNavy,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0.5, // Slight shadow for depth
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.close, color: AppTheme.primaryNavy),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              child: Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      )
+                    ],
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Report Header
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "CLINICAL AI REPORT",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w800,
+                                    color: AppTheme.primaryNavy,
+                                    letterSpacing: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "Generated by EyeScreen AI",
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: AppTheme.textLightSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppTheme.bgSecondary,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(CupertinoIcons.doc_text, color: AppTheme.primaryNavy),
+                            ),
+                          ],
+                        ),
+                        
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Divider(height: 1, color: AppTheme.borderLight),
+                        ),
+
+                        // Patient & Screening Info
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildSectionLabel(theme, "PATIENT INFORMATION"),
+                                  const SizedBox(height: 12),
+                                  _buildDataRow("Name", _profile!.name.isEmpty ? "Unknown" : _profile!.name),
+                                  const SizedBox(height: 8),
+                                  _buildDataRow("Age", "${_profile!.age} years"),
+                                  const SizedBox(height: 8),
+                                  _buildDataRow("Gender", _profile!.gender),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 32),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildSectionLabel(theme, "SCREENING DETAILS"),
+                                  const SizedBox(height: 12),
+                                  _buildDataRow("Date", DateFormat('MMM d, yyyy').format(widget.result.date)),
+                                  const SizedBox(height: 8),
+                                  _buildDataRow("Time", DateFormat('h:mm a').format(widget.result.date)),
+                                  const SizedBox(height: 8),
+                                  _buildDataRow("Model Ref", widget.result.modelVersion),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Divider(height: 1, color: AppTheme.borderLight),
+                        ),
+
+                        // Image & Primary Result
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Eye Image
+                            Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: AppTheme.bgSecondary,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: AppTheme.borderLight),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: widget.imagePath != null
+                                    ? (kIsWeb 
+                                        ? Image.network(widget.imagePath!, fit: BoxFit.cover)
+                                        : Image.file(File(widget.imagePath!), fit: BoxFit.cover))
+                                    : const Center(child: Icon(CupertinoIcons.eye, color: AppTheme.textLightDisabled, size: 40)),
+                              ),
+                            ),
+                            const SizedBox(width: 24),
+                            // Primary Result
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildSectionLabel(theme, "AI SCREENING RESULT"),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    widget.result.observation,
+                                    style: theme.textTheme.headlineSmall?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppTheme.primaryNavy,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      _buildHighlightMetric(theme, "Severity", _getSeverityLabel(), _getSeverityColor()),
+                                      const SizedBox(width: 24),
+                                      _buildHighlightMetric(theme, "Confidence", "${widget.result.confidence.toStringAsFixed(1)}%", AppTheme.primaryNavy),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        // Disease Analysis
+                        _buildSectionLabel(theme, "DISEASE ANALYSIS"),
+                        const SizedBox(height: 12),
+                        Text(
+                          widget.result.explanation.isNotEmpty 
+                              ? widget.result.explanation 
+                              : "Analysis of the retinal image indicates visual markers consistent with ${widget.result.observation}. The algorithmic pattern matching suggests a ${_getSeverityLabel().toLowerCase()} profile.",
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: AppTheme.textLightPrimary,
+                            height: 1.6,
+                          ),
+                        ),
+
+                        const SizedBox(height: 32),
+                        
+                        // Graphical Analysis (Simplified)
+                        _buildSectionLabel(theme, "GRAPHICAL ANALYSIS"),
+                        const SizedBox(height: 16),
+                        Container(
+                          width: double.infinity,
+                          height: 16,
+                          decoration: BoxDecoration(
+                            color: AppTheme.bgSecondary,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 250 * (widget.result.confidence / 100),
+                                decoration: BoxDecoration(
+                                  color: _getSeverityColor(),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("0%", style: theme.textTheme.labelSmall?.copyWith(color: AppTheme.textLightSecondary)),
+                            Text("Confidence Threshold Reached", style: theme.textTheme.labelSmall?.copyWith(color: AppTheme.primaryNavy, fontWeight: FontWeight.bold)),
+                            Text("100%", style: theme.textTheme.labelSmall?.copyWith(color: AppTheme.textLightSecondary)),
+                          ],
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        // Recommendations & Consultation
+                        _buildSectionLabel(theme, "RECOMMENDATIONS"),
+                        const SizedBox(height: 12),
+                        _buildBullet(theme, widget.result.riskLevel == RiskLevel.low ? "Continue regular annual eye check-ups." : "Schedule an appointment with an ophthalmologist for a comprehensive examination."),
+                        _buildBullet(theme, "Keep a copy of this report for your personal health records."),
+                        _buildBullet(theme, "Monitor for any sudden changes in vision such as blurriness, floaters, or flashes of light."),
+                        
+                        const SizedBox(height: 32),
+                        
+                        _buildSectionLabel(theme, "MEDICAL CONSULTATION GUIDANCE"),
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: _getSeverityColor().withValues(alpha: 0.05),
+                            border: Border(left: BorderSide(color: _getSeverityColor(), width: 4)),
+                          ),
+                          child: Text(
+                            widget.result.riskLevel == RiskLevel.low 
+                                ? "Your screening indicates a low risk of abnormalities. Professional consultation is only required if you experience symptoms."
+                                : "Your screening indicates potential abnormalities. Please present this report to a certified eye care professional for definitive diagnosis.",
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppTheme.primaryNavy,
+                              fontWeight: FontWeight.w500,
+                              height: 1.5,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 48),
+
+                        // Disclaimer
+                        Text(
+                          "DISCLAIMER: This report provides preliminary AI-based screening information and is not a medical diagnosis. It relies on algorithmic analysis of 2D images which may contain artifacts. Always consult a certified healthcare professional.",
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: AppTheme.textLightDisabled,
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          
+          // Bottom Actions
+          Container(
+            padding: const EdgeInsets.all(24.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -4),
+                )
+              ],
+            ),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 56,
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await ExportService().shareScreeningPdf(widget.result, _profile);
+                        },
+                        icon: const Icon(CupertinoIcons.share, size: 20),
+                        label: const Text("Share Report", style: TextStyle(fontSize: 16)),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppTheme.primaryNavy,
+                          side: const BorderSide(color: AppTheme.borderLight, width: 1.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: SizedBox(
+                      height: 56,
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await ExportService().printOrSavePdf(widget.result, _profile);
+                        },
+                        icon: const Icon(CupertinoIcons.arrow_down_doc, size: 20),
+                        label: const Text("Download PDF", style: TextStyle(fontSize: 16)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.primaryTeal,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionLabel(ThemeData theme, String text) {
+    return Text(
+      text,
+      style: theme.textTheme.labelSmall?.copyWith(
+        fontWeight: FontWeight.bold,
+        color: AppTheme.textLightSecondary,
+        letterSpacing: 1.2,
+      ),
+    );
+  }
+
+  Widget _buildDataRow(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: AppTheme.textLightSecondary,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(
+              color: AppTheme.primaryNavy,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHighlightMetric(ThemeData theme, String label, String value, Color color) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: AppTheme.textLightSecondary,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBullet(ThemeData theme, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 6.0, right: 12.0),
+            child: Icon(Icons.circle, size: 5, color: AppTheme.primaryNavy),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: AppTheme.textLightPrimary,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

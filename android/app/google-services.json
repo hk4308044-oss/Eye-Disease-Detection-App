@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "62435551976",
+    "project_id": "final-year-project-7e02d",
+    "storage_bucket": "final-year-project-7e02d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62435551976:android:8104a27b922633635f775d",
+        "android_client_info": {
+          "package_name": "com.visionai.fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZHY_VgR_E99ZUPkVXmGCscAYWZ2eWQ-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
