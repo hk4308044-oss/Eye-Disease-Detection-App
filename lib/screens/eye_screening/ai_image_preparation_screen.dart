@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'dart:ui';
 import 'dart:async';
 import '../../theme/app_theme.dart';
-import '../../services/eye_screening_service.dart';
-import 'screening_result_screen.dart';
 import 'ai_analysis_processing_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -140,7 +137,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                 height: 300,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colorScheme.secondary.withOpacity(0.15),
+                  color: colorScheme.secondary.withValues(alpha: 0.15),
                 ),
               ),
             ),
@@ -164,14 +161,14 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                           borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withValues(alpha: 0.5),
                               blurRadius: 20,
                               spreadRadius: 5,
                               offset: const Offset(0, 10),
                             ),
                             if (_isProcessing)
                               BoxShadow(
-                                color: colorScheme.secondary.withOpacity(0.3 * _pulseController.value),
+                                color: colorScheme.secondary.withValues(alpha: 0.3 * _pulseController.value),
                                 blurRadius: 30,
                                 spreadRadius: 5,
                               )
@@ -208,9 +205,9 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
-                                              colorScheme.secondary.withOpacity(0.0),
-                                              colorScheme.secondary.withOpacity(0.2),
-                                              colorScheme.secondary.withOpacity(0.0),
+                                              colorScheme.secondary.withValues(alpha: 0.0),
+                                              colorScheme.secondary.withValues(alpha: 0.2),
+                                              colorScheme.secondary.withValues(alpha: 0.0),
                                             ],
                                           ),
                                         ),
@@ -222,7 +219,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                                               color: colorScheme.secondary,
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: colorScheme.secondary.withOpacity(0.8),
+                                                  color: colorScheme.secondary.withValues(alpha: 0.8),
                                                   blurRadius: 8,
                                                   spreadRadius: 2,
                                                 )
@@ -256,7 +253,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                         topRight: Radius.circular(40),
                       ),
                       border: Border(
-                        top: BorderSide(color: Colors.white.withOpacity(0.05)),
+                        top: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
                       ),
                     ),
                     child: Column(
@@ -293,12 +290,12 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: isCompleted 
-                                              ? AppTheme.statusGreen.withOpacity(0.2) 
-                                              : (isCurrent ? colorScheme.secondary.withOpacity(0.2) : Colors.white.withOpacity(0.05)),
+                                              ? AppTheme.statusGreen.withValues(alpha: 0.2) 
+                                              : (isCurrent ? colorScheme.secondary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05)),
                                           border: Border.all(
                                             color: isCompleted 
                                                 ? AppTheme.statusGreen 
-                                                : (isCurrent ? colorScheme.secondary : Colors.white.withOpacity(0.1)),
+                                                : (isCurrent ? colorScheme.secondary : Colors.white.withValues(alpha: 0.1)),
                                           ),
                                         ),
                                         child: isCompleted 
@@ -317,7 +314,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
                                       Text(
                                         _checkItems[index],
                                         style: theme.textTheme.bodyLarge?.copyWith(
-                                          color: isCompleted || isCurrent ? Colors.white : Colors.white.withOpacity(0.5),
+                                          color: isCompleted || isCurrent ? Colors.white : Colors.white.withValues(alpha: 0.5),
                                           fontWeight: isCompleted ? FontWeight.w500 : FontWeight.normal,
                                         ),
                                       ),
@@ -414,7 +411,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
         Text(
           "Please ensure the eye is clearly visible, well-lit, and centered in the frame. Avoid reflections and blur.",
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
             height: 1.4,
           ),
         ),
@@ -425,7 +422,7 @@ class _AiImagePreparationScreenState extends State<AiImagePreparationScreen> wit
           child: OutlinedButton(
             onPressed: () => Navigator.pop(context),
             style: OutlinedButton.styleFrom(
-              side: BorderSide(color: Colors.white.withOpacity(0.3)),
+              side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),

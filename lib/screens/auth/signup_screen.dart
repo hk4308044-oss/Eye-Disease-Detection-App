@@ -151,7 +151,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 "Create Account",
                 style: textTheme.headlineMedium?.copyWith(
                   color: deepNavy,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   letterSpacing: -0.5,
                 ),
               ),
@@ -179,8 +179,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: const TextStyle(color: deepNavy),
                 decoration: InputDecoration(
                   hintText: "John Doe",
-                  hintStyle: TextStyle(color: slateGrey.withOpacity(0.6)),
-                  prefixIcon: Icon(Icons.person_outline, color: slateGrey.withOpacity(0.6)),
+                  hintStyle: TextStyle(color: slateGrey.withValues(alpha: 0.6)),
+                  prefixIcon: Icon(Icons.person_outline, color: slateGrey.withValues(alpha: 0.6)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
@@ -216,8 +216,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: const TextStyle(color: deepNavy),
                 decoration: InputDecoration(
                   hintText: "name@example.com",
-                  hintStyle: TextStyle(color: slateGrey.withOpacity(0.6)),
-                  prefixIcon: Icon(Icons.email_outlined, color: slateGrey.withOpacity(0.6)),
+                  hintStyle: TextStyle(color: slateGrey.withValues(alpha: 0.6)),
+                  prefixIcon: Icon(Icons.email_outlined, color: slateGrey.withValues(alpha: 0.6)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
@@ -254,11 +254,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: const TextStyle(color: deepNavy),
                 decoration: InputDecoration(
                   hintText: "••••••••",
-                  hintStyle: TextStyle(color: slateGrey.withOpacity(0.6)),
-                  prefixIcon: Icon(Icons.lock_outline, color: slateGrey.withOpacity(0.6)),
+                  hintStyle: TextStyle(color: slateGrey.withValues(alpha: 0.6)),
+                  prefixIcon: Icon(Icons.lock_outline, color: slateGrey.withValues(alpha: 0.6)),
                   suffixIcon: IconButton(
                     icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined),
-                    color: slateGrey.withOpacity(0.6),
+                    color: slateGrey.withValues(alpha: 0.6),
                     onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                   ),
                   filled: true,
@@ -315,11 +315,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: const TextStyle(color: deepNavy),
                 decoration: InputDecoration(
                   hintText: "••••••••",
-                  hintStyle: TextStyle(color: slateGrey.withOpacity(0.6)),
-                  prefixIcon: Icon(Icons.lock_outline, color: slateGrey.withOpacity(0.6)),
+                  hintStyle: TextStyle(color: slateGrey.withValues(alpha: 0.6)),
+                  prefixIcon: Icon(Icons.lock_outline, color: slateGrey.withValues(alpha: 0.6)),
                   suffixIcon: IconButton(
                     icon: Icon(_obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined),
-                    color: slateGrey.withOpacity(0.6),
+                    color: slateGrey.withValues(alpha: 0.6),
                     onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
                   ),
                   filled: true,

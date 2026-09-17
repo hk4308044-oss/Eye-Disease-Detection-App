@@ -141,7 +141,7 @@ class _ReportPreviewScreenState extends State<ReportPreviewScreen> {
                                 Text(
                                   "CLINICAL AI REPORT",
                                   style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w700,
                                     color: AppTheme.primaryNavy,
                                     letterSpacing: 1.5,
                                   ),

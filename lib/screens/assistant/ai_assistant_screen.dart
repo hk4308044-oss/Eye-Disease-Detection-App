@@ -472,14 +472,14 @@ class _AiAssistantScreenState extends State<AiAssistantScreen>
         children: [
           AnimatedBuilder(
             animation: _pulseController,
-            builder: (_, __) => Container(
+            builder: (_, _) => Container(
               width: 36,
               height: 36,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppTheme.lightTeal,
                 border: Border.all(
-                  color: AppTheme.primaryTeal.withOpacity(0.2 + 0.3 * _pulseController.value),
+                  color: AppTheme.primaryTeal.withValues(alpha: 0.2 + 0.3 * _pulseController.value),
                   width: 1.5,
                 ),
               ),
@@ -563,8 +563,8 @@ class _AiAssistantScreenState extends State<AiAssistantScreen>
             margin: const EdgeInsets.only(top: 2, right: 10),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: msg.isUrgent ? AppTheme.statusRed.withOpacity(0.1) : AppTheme.lightTeal,
-              border: Border.all(color: msg.isUrgent ? AppTheme.statusRed.withOpacity(0.3) : AppTheme.primaryTeal.withOpacity(0.3)),
+              color: msg.isUrgent ? AppTheme.statusRed.withValues(alpha: 0.1) : AppTheme.lightTeal,
+              border: Border.all(color: msg.isUrgent ? AppTheme.statusRed.withValues(alpha: 0.3) : AppTheme.primaryTeal.withValues(alpha: 0.3)),
             ),
             child: Icon(
               msg.isUrgent ? Icons.warning_rounded : CupertinoIcons.eye_solid,
@@ -588,7 +588,7 @@ class _AiAssistantScreenState extends State<AiAssistantScreen>
                       bottomRight: Radius.circular(18),
                     ),
                     border: Border.all(
-                      color: msg.isUrgent ? AppTheme.statusRed.withOpacity(0.2) : AppTheme.borderLight,
+                      color: msg.isUrgent ? AppTheme.statusRed.withValues(alpha: 0.2) : AppTheme.borderLight,
                       width: 0.8,
                     ),
                     boxShadow: AppTheme.subtleShadowLight,
@@ -699,7 +699,7 @@ class _AiAssistantScreenState extends State<AiAssistantScreen>
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: _quickActions.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 10),
+              separatorBuilder: (_, _) => const SizedBox(width: 10),
               itemBuilder: (context, i) {
                 final action = _quickActions[i];
                 return GestureDetector(
@@ -755,7 +755,7 @@ class _AiAssistantScreenState extends State<AiAssistantScreen>
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0, -4))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 10, offset: const Offset(0, -4))],
       ),
       child: SafeArea(
         child: Row(

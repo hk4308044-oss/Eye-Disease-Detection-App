@@ -169,10 +169,10 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
         height: 280,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          border: Border.all(color: Colors.black.withOpacity(0.05)),
+          border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 24,
               offset: const Offset(0, 8),
             )
@@ -204,9 +204,9 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              accentCyan.withOpacity(0.0),
-                              accentCyan.withOpacity(0.4),
-                              accentCyan.withOpacity(0.0),
+                              accentCyan.withValues(alpha: 0.0),
+                              accentCyan.withValues(alpha: 0.4),
+                              accentCyan.withValues(alpha: 0.0),
                             ],
                           ),
                         ),
@@ -214,7 +214,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
                           child: Container(
                             height: 2,
                             width: double.infinity,
-                            color: accentCyan.withOpacity(0.8),
+                            color: accentCyan.withValues(alpha: 0.8),
                           ),
                         ),
                       ),
@@ -268,7 +268,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: successGreen.withOpacity(0.1),
+                color: successGreen.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(CupertinoIcons.checkmark_alt, color: successGreen, size: 20),
@@ -279,7 +279,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
               style: TextStyle(
                 color: primaryNavy,
                 fontSize: 20,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
@@ -302,7 +302,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: errorRed.withOpacity(0.1),
+                color: errorRed.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(CupertinoIcons.exclamationmark, color: errorRed, size: 20),
@@ -313,7 +313,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
               style: TextStyle(
                 color: primaryNavy,
                 fontSize: 20,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
@@ -324,7 +324,7 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: errorRed.withOpacity(0.2)),
+            border: Border.all(color: errorRed.withValues(alpha: 0.2)),
           ),
           child: const Text(
             "The captured image is either blurry, out of focus, or lacks sufficient lighting. For the AI to accurately assess your eye health, we need a clear and well-lit image.",
@@ -350,10 +350,10 @@ class _ImageQualityScreenState extends State<ImageQualityScreen> with SingleTick
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: isComplete ? successGreen.withOpacity(0.1) : Colors.transparent,
+              color: isComplete ? successGreen.withValues(alpha: 0.1) : Colors.transparent,
               shape: BoxShape.circle,
               border: Border.all(
-                color: isComplete ? successGreen : slateGrey.withOpacity(0.3),
+                color: isComplete ? successGreen : slateGrey.withValues(alpha: 0.3),
                 width: 1.5,
               ),
             ),

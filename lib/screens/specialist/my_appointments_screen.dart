@@ -166,7 +166,7 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> with Single
           children: [
             Icon(CupertinoIcons.calendar_badge_plus, size: 56, color: AppTheme.borderLight),
             const SizedBox(height: 16),
-            Text('No ${status} appointments', style: theme.textTheme.titleSmall?.copyWith(color: AppTheme.textLightSecondary)),
+            Text('No $status appointments', style: theme.textTheme.titleSmall?.copyWith(color: AppTheme.textLightSecondary)),
           ],
         ),
       );
@@ -175,7 +175,7 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> with Single
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(24),
       itemCount: items.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (_, _) => const SizedBox(height: 16),
       itemBuilder: (context, index) => _buildAppointmentCard(theme, items[index]),
     );
   }
@@ -222,9 +222,9 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> with Single
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.1),
+                    color: statusColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: statusColor.withOpacity(0.3)),
+                    border: Border.all(color: statusColor.withValues(alpha: 0.3)),
                   ),
                   child: Text(statusLabel, style: theme.textTheme.labelSmall?.copyWith(color: statusColor, fontWeight: FontWeight.bold)),
                 ),

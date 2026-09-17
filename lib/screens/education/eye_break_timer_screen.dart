@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
-import 'dart:math';
 
 class EyeBreakTimerScreen extends StatefulWidget {
   const EyeBreakTimerScreen({super.key});
@@ -114,7 +113,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
   Widget build(BuildContext context) {
     // Immersive dark mode for resting eyes, even if system is light mode
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? Theme.of(context).colorScheme.background : AppTheme.primaryNavy;
+    final bgColor = isDark ? Theme.of(context).colorScheme.surface : AppTheme.primaryNavy;
     final textColor = Colors.white;
 
     return Scaffold(
@@ -128,7 +127,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
         ),
         title: Text(
           "Eye Relaxation",
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, ),
         ),
       ),
       body: SafeArea(
@@ -143,8 +142,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
-                  fontFamily: 'Inter'
-                ),
+                  ),
               ),
             ),
             Padding(
@@ -153,11 +151,10 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                 "Look at an object 20 feet away for 20 seconds.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: textColor.withOpacity(0.7),
+                  color: textColor.withValues(alpha: 0.7),
                   fontSize: 18,
                   height: 1.4,
-                  fontFamily: 'Inter'
-                ),
+                  ),
               ),
             ),
             const Spacer(),
@@ -175,7 +172,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                         height: 280 + (_breathingController.value * 40),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppTheme.aiTeal.withOpacity(0.05 + (_breathingController.value * 0.1)),
+                          color: AppTheme.aiTeal.withValues(alpha: 0.05 + (_breathingController.value * 0.1)),
                         ),
                       );
                     }
@@ -190,7 +187,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                         return CircularProgressIndicator(
                           value: 1.0 - _progressController.value,
                           strokeWidth: 8,
-                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundColor: Colors.white.withValues(alpha: 0.1),
                           color: AppTheme.aiTeal,
                           strokeCap: StrokeCap.round,
                         );
@@ -208,8 +205,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                           fontSize: 72,
                           fontWeight: FontWeight.w200,
                           letterSpacing: -2,
-                          fontFamily: 'Inter'
-                        ),
+                          ),
                       ),
                       const Text(
                         "SECONDS",
@@ -218,8 +214,7 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 2,
-                          fontFamily: 'Inter'
-                        ),
+                          ),
                       ),
                     ],
                   ),
@@ -237,12 +232,12 @@ class _EyeBreakTimerScreenState extends State<EyeBreakTimerScreen> with TickerPr
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: _isRunning ? Colors.white.withOpacity(0.1) : AppTheme.aiTeal,
+                    color: _isRunning ? Colors.white.withValues(alpha: 0.1) : AppTheme.aiTeal,
                     shape: BoxShape.circle,
-                    border: _isRunning ? Border.all(color: Colors.white.withOpacity(0.3), width: 2) : null,
+                    border: _isRunning ? Border.all(color: Colors.white.withValues(alpha: 0.3), width: 2) : null,
                     boxShadow: _isRunning ? null : [
                       BoxShadow(
-                        color: AppTheme.aiTeal.withOpacity(0.4),
+                        color: AppTheme.aiTeal.withValues(alpha: 0.4),
                         blurRadius: 24,
                         offset: const Offset(0, 8),
                       )

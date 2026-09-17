@@ -1,0 +1,5 @@
+{
+    "files.autoSave": "afterDelay",
+    "java.import.gradle.version": "9.1.0",
+    "java.import.gradle.wrapper.enabled": false
+}

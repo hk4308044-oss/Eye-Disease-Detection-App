@@ -61,7 +61,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: filtered.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    separatorBuilder: (_, _) => const Divider(height: 1),
                     itemBuilder: (context, i) {
                       final patient = filtered[i];
                       return _buildPatientRow(context, patient);
@@ -85,10 +85,9 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           patient.name.isNotEmpty ? patient.name[0].toUpperCase() : 'P',
           style: const TextStyle(
             color: AppTheme.primaryTeal,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
             fontSize: 16,
-            fontFamily: 'Inter',
-          ),
+            ),
         ),
       ),
       title: Row(
@@ -99,8 +98,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               fontSize: 15,
               fontWeight: FontWeight.w700,
               color: AppTheme.primaryNavy,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
           const SizedBox(width: 8),
           Container(
@@ -118,8 +116,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
                 color: isActive ? AppTheme.statusGreen : AppTheme.statusRed,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
         ],
@@ -129,8 +126,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
         style: const TextStyle(
           fontSize: 12,
           color: AppTheme.textLightSecondary,
-          fontFamily: 'Inter',
-        ),
+          ),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -169,7 +165,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             SizedBox(height: 12),
             Text(
               'No patient records found.',
-              style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+              style: TextStyle(color: AppTheme.textLightSecondary, ),
             ),
           ],
         ),
@@ -185,13 +181,13 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
           isCurrentlyActive ? 'Suspend Patient Account' : 'Activate Patient Account',
-          style: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
         content: Text(
           isCurrentlyActive
               ? 'Are you sure you want to suspend access for ${patient.name}?'
               : 'Are you sure you want to re-activate access for ${patient.name}?',
-          style: const TextStyle(fontFamily: 'Inter'),
+          style: const TextStyle(),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
@@ -268,10 +264,9 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                     'Patient Profile & History',
                     style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       color: AppTheme.primaryNavy,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                   const Spacer(),
                   IconButton(
@@ -312,7 +307,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Edit Patient Profile', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+        title: const Text('Edit Patient Profile', style: TextStyle(fontWeight: FontWeight.w700)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -369,13 +364,13 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             width: 140,
             child: Text(
               label,
-              style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+              style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, ),
             ),
           ),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.primaryNavy, ),
             ),
           ),
         ],

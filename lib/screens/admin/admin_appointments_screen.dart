@@ -80,7 +80,7 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
                     onPressed: () => _showCreateAppointmentModal(context),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      textStyle: const TextStyle(fontSize: 13, fontFamily: 'Inter', fontWeight: FontWeight.w600),
+                      textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -88,14 +88,14 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
                     ? const Padding(
                         padding: EdgeInsets.all(40),
                         child: Center(
-                          child: Text('No system appointments match criteria.', style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                          child: Text('No system appointments match criteria.', style: TextStyle(color: AppTheme.textLightSecondary, )),
                         ),
                       )
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: filtered.length,
-                        separatorBuilder: (_, __) => const Divider(height: 1),
+                        separatorBuilder: (_, _) => const Divider(height: 1),
                         itemBuilder: (context, i) => _buildAppointmentRow(context, filtered[i]),
                       ),
               ),
@@ -128,7 +128,7 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
         children: [
           Text(
             appt.patientName,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
           ),
           const SizedBox(width: 8),
           StatusBadge(status: appt.status, compact: true),
@@ -136,7 +136,7 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
       ),
       subtitle: Text(
         'Doctor: Dr. ${appt.doctorName}\nScheduled: ${DateFormat('dd MMM yyyy, hh:mm a').format(appt.scheduledAt)} • ${appt.consultationType.label}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -180,7 +180,7 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Text('Reassign Doctor for ${appt.patientName}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, fontFamily: 'Inter')),
+                  child: Text('Reassign Doctor for ${appt.patientName}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, )),
                 ),
                 const Divider(height: 1),
                 Expanded(
@@ -245,7 +245,7 @@ class _AdminAppointmentsScreenState extends State<AdminAppointmentsScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Schedule Administrative Appointment', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+        title: const Text('Schedule Administrative Appointment', style: TextStyle(fontWeight: FontWeight.w700)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

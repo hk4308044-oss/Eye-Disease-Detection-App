@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../theme/app_theme.dart';
 
-/// Stat summary card exclusively for the Doctor Dashboard using GoogleFonts.manrope.
+/// Stat summary card exclusively for the Doctor Dashboard using GoogleFonts.plusJakartaSans.
 class DoctorStatCard extends StatelessWidget {
   final String title;
   final String value;
@@ -72,9 +72,9 @@ class DoctorStatCard extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: GoogleFonts.manrope(
+                  style: GoogleFonts.plusJakartaSans(
                     fontSize: 22,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     color: AppTheme.primaryNavy,
                     letterSpacing: -0.5,
                   ),
@@ -82,7 +82,7 @@ class DoctorStatCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   title,
-                  style: GoogleFonts.manrope(
+                  style: GoogleFonts.plusJakartaSans(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: AppTheme.textLightSecondary,

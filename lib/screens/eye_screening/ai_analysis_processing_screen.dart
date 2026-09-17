@@ -6,7 +6,6 @@ import '../../theme/app_theme.dart';
 import '../../services/eye_screening_service.dart';
 import '../../models/eye_screening_result.dart';
 import 'screening_result_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AiAnalysisProcessingScreen extends StatefulWidget {
@@ -146,7 +145,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                 height: 400,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppTheme.aiTeal.withOpacity(0.08),
+                  color: AppTheme.aiTeal.withValues(alpha: 0.08),
                 ),
               ),
             ),
@@ -161,7 +160,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                 height: 400,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppTheme.aiTeal.withOpacity(0.05),
+                  color: AppTheme.aiTeal.withValues(alpha: 0.05),
                 ),
               ),
             ),
@@ -185,7 +184,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                 Text(
                   "Analyzing visual patterns",
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                   ),
                 ),
                 
@@ -202,12 +201,12 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: AppTheme.aiTeal.withOpacity(0.3 + 0.3 * _pulseController.value),
+                            color: AppTheme.aiTeal.withValues(alpha: 0.3 + 0.3 * _pulseController.value),
                             width: 2,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: AppTheme.aiTeal.withOpacity(0.15 * _pulseController.value),
+                              color: AppTheme.aiTeal.withValues(alpha: 0.15 * _pulseController.value),
                               blurRadius: 30,
                               spreadRadius: 10,
                             )
@@ -233,7 +232,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                   ),
                             ColorFiltered(
                               colorFilter: ColorFilter.mode(
-                                AppTheme.aiTeal.withOpacity(0.2),
+                                AppTheme.aiTeal.withValues(alpha: 0.2),
                                 BlendMode.overlay,
                               ),
                               child: Container(color: Colors.transparent),
@@ -253,9 +252,9 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                         colors: [
-                                          AppTheme.aiTeal.withOpacity(0.0),
-                                          AppTheme.aiTeal.withOpacity(0.4),
-                                          AppTheme.aiTeal.withOpacity(0.0),
+                                          AppTheme.aiTeal.withValues(alpha: 0.0),
+                                          AppTheme.aiTeal.withValues(alpha: 0.4),
+                                          AppTheme.aiTeal.withValues(alpha: 0.0),
                                         ],
                                       ),
                                     ),
@@ -272,7 +271,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                             ),
                             // Tech overlay grid
                             CustomPaint(
-                              painter: GridOverlayPainter(color: AppTheme.aiTeal.withOpacity(0.15)),
+                              painter: GridOverlayPainter(color: AppTheme.aiTeal.withValues(alpha: 0.15)),
                             ),
                           ],
                         ),
@@ -312,7 +311,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   border: Border.all(
-                                                    color: AppTheme.aiTeal.withOpacity(0.5 + 0.5 * _pulseController.value),
+                                                    color: AppTheme.aiTeal.withValues(alpha: 0.5 + 0.5 * _pulseController.value),
                                                     width: 2,
                                                   ),
                                                 ),
@@ -322,14 +321,14 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                                     height: 8,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
-                                                      color: AppTheme.aiTeal.withOpacity(0.5 + 0.5 * _pulseController.value),
+                                                      color: AppTheme.aiTeal.withValues(alpha: 0.5 + 0.5 * _pulseController.value),
                                                     ),
                                                   ),
                                                 ),
                                               );
                                             }
                                           )
-                                        : Icon(Icons.circle_outlined, color: Colors.white.withOpacity(0.2), size: 24),
+                                        : Icon(Icons.circle_outlined, color: Colors.white.withValues(alpha: 0.2), size: 24),
                               ),
                               const SizedBox(width: 16),
                               
@@ -338,7 +337,7 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                 child: Text(
                                   _stages[index],
                                   style: theme.textTheme.titleMedium?.copyWith(
-                                    color: isCompleted || isCurrent ? Colors.white : Colors.white.withOpacity(0.4),
+                                    color: isCompleted || isCurrent ? Colors.white : Colors.white.withValues(alpha: 0.4),
                                     fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                                   ),
                                 ),
@@ -355,8 +354,8 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                                   color: isCompleted
                                       ? AppTheme.aiTeal
                                       : isCurrent
-                                          ? AppTheme.aiTeal.withOpacity(0.8)
-                                          : Colors.white.withOpacity(0.3),
+                                          ? AppTheme.aiTeal.withValues(alpha: 0.8)
+                                          : Colors.white.withValues(alpha: 0.3),
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 1.0,
                                 ),
@@ -375,13 +374,13 @@ class _AiAnalysisProcessingScreenState extends State<AiAnalysisProcessingScreen>
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, color: Colors.white.withOpacity(0.4), size: 16),
+                      Icon(Icons.info_outline, color: Colors.white.withValues(alpha: 0.4), size: 16),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           "This screening provides preliminary health information and does not replace professional medical diagnosis.",
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withOpacity(0.4),
+                            color: Colors.white.withValues(alpha: 0.4),
                             height: 1.4,
                           ),
                           textAlign: TextAlign.center,

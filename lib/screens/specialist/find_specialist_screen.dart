@@ -131,7 +131,7 @@ class _FindSpecialistScreenState extends State<FindSpecialistScreen> {
                     decoration: BoxDecoration(
                       color: AppTheme.lightTeal,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppTheme.aiTeal.withOpacity(0.3)),
+                      border: Border.all(color: AppTheme.aiTeal.withValues(alpha: 0.3)),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +162,7 @@ class _FindSpecialistScreenState extends State<FindSpecialistScreen> {
                   decoration: BoxDecoration(
                     color: const Color(0xFFFEF9C3),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFFFDE047).withOpacity(0.5)),
+                    border: Border.all(color: const Color(0xFFFDE047).withValues(alpha: 0.5)),
                   ),
                   child: Row(
                     children: [
@@ -190,7 +190,7 @@ class _FindSpecialistScreenState extends State<FindSpecialistScreen> {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 24),
               itemCount: _filters.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
                 final filter = _filters[index];
                 final isActive = _activeFilter == filter;
@@ -237,7 +237,7 @@ class _FindSpecialistScreenState extends State<FindSpecialistScreen> {
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     itemCount: _filteredDoctors.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 16),
+                    separatorBuilder: (_, _) => const SizedBox(height: 16),
                     itemBuilder: (context, index) => _buildDoctorCard(context, _filteredDoctors[index]),
                   ),
           ),

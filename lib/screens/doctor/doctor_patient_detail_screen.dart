@@ -78,8 +78,7 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
                 labelStyle: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'Inter',
-                ),
+                  ),
                 tabs: const [
                   Tab(text: 'Overview'),
                   Tab(text: 'AI Screenings'),
@@ -134,7 +133,7 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
                   // Avatar
                   CircleAvatar(
                     radius: 32,
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                    backgroundColor: Colors.white.withValues(alpha: 0.2),
                     child: Text(
                       widget.patient.name.isNotEmpty
                           ? widget.patient.name[0].toUpperCase()
@@ -142,9 +141,8 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: 'Inter',
-                      ),
+                        fontWeight: FontWeight.w700,
+                        ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -158,8 +156,7 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                             letterSpacing: -0.3,
                           ),
                         ),
@@ -167,10 +164,9 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
                         Text(
                           '${widget.patient.age} yrs • ${widget.patient.gender}',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 13,
-                            fontFamily: 'Inter',
-                          ),
+                            ),
                         ),
                         const SizedBox(height: 6),
                         Row(
@@ -198,7 +194,7 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.15),
+        color: Colors.white.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -206,7 +202,6 @@ class _DoctorPatientDetailScreenState extends State<DoctorPatientDetailScreen>
         style: const TextStyle(
           color: Colors.white,
           fontSize: 11,
-          fontFamily: 'Inter',
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -277,8 +272,7 @@ class _OverviewTab extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
             const SizedBox(height: 12),
             ...children,
@@ -301,8 +295,7 @@ class _OverviewTab extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 13,
                 color: AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
           Expanded(
@@ -312,8 +305,7 @@ class _OverviewTab extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
         ],
@@ -326,20 +318,19 @@ class _OverviewTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: isCondition
-            ? AppTheme.statusRed.withOpacity(0.08)
-            : AppTheme.primaryTeal.withOpacity(0.08),
+            ? AppTheme.statusRed.withValues(alpha: 0.08)
+            : AppTheme.primaryTeal.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isCondition
-              ? AppTheme.statusRed.withOpacity(0.25)
-              : AppTheme.primaryTeal.withOpacity(0.25),
+              ? AppTheme.statusRed.withValues(alpha: 0.25)
+              : AppTheme.primaryTeal.withValues(alpha: 0.25),
         ),
       ),
       child: Text(
         label,
         style: TextStyle(
           fontSize: 12,
-          fontFamily: 'Inter',
           fontWeight: FontWeight.w500,
           color: isCondition ? AppTheme.statusRed : AppTheme.primaryTeal,
         ),
@@ -363,16 +354,14 @@ class _OverviewTab extends StatelessWidget {
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: AppTheme.primaryNavy,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
               Text(
                 DateFormat('dd MMM yyyy').format(result.date),
                 style: const TextStyle(
                   fontSize: 11,
                   color: AppTheme.textLightSecondary,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
             ],
           ),
@@ -400,7 +389,7 @@ class _ScreeningsTab extends StatelessWidget {
             SizedBox(height: 12),
             Text('No AI screening results',
                 style: TextStyle(
-                    color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                    color: AppTheme.textLightSecondary, )),
           ],
         ),
       );
@@ -434,10 +423,10 @@ class _ScreeningsTab extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-            color: riskColor.withOpacity(0.2), width: 1),
+            color: riskColor.withValues(alpha: 0.2), width: 1),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryNavy.withOpacity(0.04),
+            color: AppTheme.primaryNavy.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -452,7 +441,7 @@ class _ScreeningsTab extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: riskColor.withOpacity(0.1),
+                  color: riskColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(Icons.remove_red_eye_outlined,
@@ -469,16 +458,14 @@ class _ScreeningsTab extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: AppTheme.primaryNavy,
-                        fontFamily: 'Inter',
-                      ),
+                        ),
                     ),
                     Text(
                       result.category,
                       style: const TextStyle(
                         fontSize: 12,
                         color: AppTheme.textLightSecondary,
-                        fontFamily: 'Inter',
-                      ),
+                        ),
                     ),
                   ],
                 ),
@@ -517,8 +504,7 @@ class _ScreeningsTab extends StatelessWidget {
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       color: AppTheme.textLightSecondary,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -526,7 +512,6 @@ class _ScreeningsTab extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       color: AppTheme.primaryNavy,
-                      fontFamily: 'Inter',
                       height: 1.5,
                     ),
                   ),
@@ -538,10 +523,10 @@ class _ScreeningsTab extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: AppTheme.statusYellow.withOpacity(0.08),
+              color: AppTheme.statusYellow.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: AppTheme.statusYellow.withOpacity(0.25)),
+                  color: AppTheme.statusYellow.withValues(alpha: 0.25)),
             ),
             child: const Row(
               children: [
@@ -554,7 +539,6 @@ class _ScreeningsTab extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11,
                       color: AppTheme.statusYellow,
-                      fontFamily: 'Inter',
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -584,7 +568,6 @@ class _ScreeningsTab extends StatelessWidget {
             style: const TextStyle(
               fontSize: 11,
               color: AppTheme.textLightSecondary,
-              fontFamily: 'Inter',
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -617,7 +600,7 @@ class _AppointmentsTab extends StatelessWidget {
             SizedBox(height: 12),
             Text('No appointment history',
                 style: TextStyle(
-                    color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                    color: AppTheme.textLightSecondary, )),
           ],
         ),
       );
@@ -646,16 +629,14 @@ class _AppointmentsTab extends StatelessWidget {
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
                       color: AppTheme.primaryNavy,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                   Text(
                     DateFormat('hh:mm a').format(appt.scheduledAt),
                     style: const TextStyle(
                       fontSize: 11,
                       color: AppTheme.textLightSecondary,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                 ],
               ),
@@ -670,8 +651,7 @@ class _AppointmentsTab extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 11,
                       color: AppTheme.textLightSecondary,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                 ],
               ),
@@ -724,8 +704,7 @@ class _NotesTabState extends State<_NotesTab> {
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: AppTheme.primaryNavy,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
               const SizedBox(height: 4),
               const Text(
@@ -733,7 +712,6 @@ class _NotesTabState extends State<_NotesTab> {
                 style: TextStyle(
                   fontSize: 12,
                   color: AppTheme.textLightSecondary,
-                  fontFamily: 'Inter',
                   height: 1.5,
                 ),
               ),
@@ -744,9 +722,9 @@ class _NotesTabState extends State<_NotesTab> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppTheme.primaryTeal.withOpacity(0.05),
+            color: AppTheme.primaryTeal.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppTheme.primaryTeal.withOpacity(0.2)),
+            border: Border.all(color: AppTheme.primaryTeal.withValues(alpha: 0.2)),
           ),
           child: const Row(
             children: [
@@ -758,7 +736,6 @@ class _NotesTabState extends State<_NotesTab> {
                   style: TextStyle(
                     fontSize: 12,
                     color: AppTheme.primaryTeal,
-                    fontFamily: 'Inter',
                     height: 1.5,
                   ),
                 ),

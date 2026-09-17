@@ -4,7 +4,7 @@ import '../../../models/doctor_appointment.dart';
 import '../../../theme/app_theme.dart';
 import 'status_badge.dart';
 
-/// Expanded patient request card with GoogleFonts.manrope typography.
+/// Expanded patient request card with GoogleFonts.plusJakartaSans typography.
 class PatientRequestCard extends StatelessWidget {
   final DoctorAppointment appointment;
   final VoidCallback? onAccept;
@@ -58,7 +58,7 @@ class PatientRequestCard extends StatelessWidget {
                       children: [
                         Text(
                           appointment.patientName,
-                          style: GoogleFonts.manrope(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.primaryNavy,
@@ -67,7 +67,7 @@ class PatientRequestCard extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           '${appointment.patientAge} yrs • ${appointment.patientGender}',
-                          style: GoogleFonts.manrope(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: AppTheme.textLightSecondary,
@@ -152,9 +152,9 @@ class PatientRequestCard extends StatelessWidget {
       backgroundColor: AppTheme.primaryTeal.withValues(alpha: 0.12),
       child: Text(
         initials,
-        style: GoogleFonts.manrope(
+        style: GoogleFonts.plusJakartaSans(
           color: AppTheme.primaryTeal,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
           fontSize: 18,
         ),
       ),
@@ -169,7 +169,7 @@ class PatientRequestCard extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           '$label: ',
-          style: GoogleFonts.manrope(
+          style: GoogleFonts.plusJakartaSans(
             fontSize: 12,
             fontWeight: FontWeight.w600,
             color: AppTheme.textLightSecondary,
@@ -178,7 +178,7 @@ class PatientRequestCard extends StatelessWidget {
         Expanded(
           child: Text(
             value,
-            style: GoogleFonts.manrope(
+            style: GoogleFonts.plusJakartaSans(
               fontSize: 12,
               fontWeight: FontWeight.w500,
               color: AppTheme.primaryNavy,
@@ -209,7 +209,7 @@ class PatientRequestCard extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               label,
-              style: GoogleFonts.manrope(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: color,
@@ -259,7 +259,7 @@ class PatientRequestCard extends StatelessWidget {
         ),
         child: Text(
           'Accept',
-          style: GoogleFonts.manrope(
+          style: GoogleFonts.plusJakartaSans(
             fontSize: 13,
             fontWeight: FontWeight.w700,
             color: Colors.white,

@@ -62,7 +62,7 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
                 child: Text(
                   "Skip",
                   style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.5),
+                    color: colorScheme.onSurface.withValues(alpha: 0.5),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -90,7 +90,7 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
                           width: 250,
                           height: 250,
                           decoration: BoxDecoration(
-                            color: colorScheme.secondary.withOpacity(0.1),
+                            color: colorScheme.secondary.withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -138,7 +138,7 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
                   decoration: BoxDecoration(
                     color: _currentPage == index
                         ? colorScheme.secondary
-                        : colorScheme.onSurface.withOpacity(0.2),
+                        : colorScheme.onSurface.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),

@@ -14,6 +14,7 @@ class UserProfile {
   final String preferredLanguage; // 'en' or 'ur'
   final List<String> userGoals;
   final bool hasConsented;
+  final String? profileImageUrl; // Firebase Storage download URL
 
   UserProfile({
     required this.id,
@@ -31,6 +32,7 @@ class UserProfile {
     this.preferredLanguage = 'en',
     this.userGoals = const [],
     this.hasConsented = false,
+    this.profileImageUrl,
   });
 
   // Factory to create a default mocked profile for the dashboard if not set up
@@ -50,6 +52,7 @@ class UserProfile {
       preferredLanguage: 'en',
       userGoals: ["Monitor my eye-health journey"],
       hasConsented: true,
+      profileImageUrl: null,
     );
   }
 
@@ -70,6 +73,7 @@ class UserProfile {
       'preferredLanguage': preferredLanguage,
       'userGoals': userGoals,
       'hasConsented': hasConsented,
+      'profileImageUrl': profileImageUrl,
     };
   }
 
@@ -90,6 +94,44 @@ class UserProfile {
       preferredLanguage: map['preferredLanguage'] ?? 'en',
       userGoals: List<String>.from(map['userGoals'] ?? []),
       hasConsented: map['hasConsented'] ?? false,
+      profileImageUrl: map['profileImageUrl'],
+    );
+  }
+
+  UserProfile copyWith({
+    String? name,
+    int? age,
+    String? dateOfBirth,
+    String? gender,
+    bool? wearsGlasses,
+    bool? familyHistory,
+    int? averageScreenTimeHours,
+    List<String>? commonSymptoms,
+    int? eyeHealthScore,
+    int? streakDays,
+    String? role,
+    String? preferredLanguage,
+    List<String>? userGoals,
+    bool? hasConsented,
+    String? profileImageUrl,
+  }) {
+    return UserProfile(
+      id: id,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      gender: gender ?? this.gender,
+      wearsGlasses: wearsGlasses ?? this.wearsGlasses,
+      familyHistory: familyHistory ?? this.familyHistory,
+      averageScreenTimeHours: averageScreenTimeHours ?? this.averageScreenTimeHours,
+      commonSymptoms: commonSymptoms ?? this.commonSymptoms,
+      eyeHealthScore: eyeHealthScore ?? this.eyeHealthScore,
+      streakDays: streakDays ?? this.streakDays,
+      role: role ?? this.role,
+      preferredLanguage: preferredLanguage ?? this.preferredLanguage,
+      userGoals: userGoals ?? this.userGoals,
+      hasConsented: hasConsented ?? this.hasConsented,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
     );
   }
 }

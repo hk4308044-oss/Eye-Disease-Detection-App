@@ -45,14 +45,14 @@ class _AdminAuditLogsScreenState extends State<AdminAuditLogsScreen> {
                 ? const Padding(
                     padding: EdgeInsets.all(40),
                     child: Center(
-                      child: Text('No audit log entries recorded.', style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                      child: Text('No audit log entries recorded.', style: TextStyle(color: AppTheme.textLightSecondary, )),
                     ),
                   )
                 : ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: filtered.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    separatorBuilder: (_, _) => const Divider(height: 1),
                     itemBuilder: (context, i) => _buildAuditRow(filtered[i]),
                   ),
           );
@@ -77,7 +77,7 @@ class _AdminAuditLogsScreenState extends State<AdminAuditLogsScreen> {
         children: [
           Text(
             log.action,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
           ),
           const SizedBox(width: 8),
           Container(
@@ -88,14 +88,14 @@ class _AdminAuditLogsScreenState extends State<AdminAuditLogsScreen> {
             ),
             child: Text(
               log.targetType,
-              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppTheme.primaryTeal, fontFamily: 'Inter'),
+              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppTheme.primaryTeal, ),
             ),
           ),
         ],
       ),
       subtitle: Text(
         'Admin: ${log.adminName} • ${DateFormat('dd MMM yyyy, hh:mm:ss a').format(log.timestamp)}\n${log.details}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
       ),
     );
   }

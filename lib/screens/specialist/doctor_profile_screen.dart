@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../../models/specialist_models.dart';
 import '../../theme/app_theme.dart';
+import '../../services/messaging_service.dart';
+import '../messaging/chat_screen.dart';
 import 'appointment_booking_screen.dart';
 
 class DoctorProfileScreen extends StatelessWidget {
@@ -47,8 +49,8 @@ class DoctorProfileScreen extends StatelessWidget {
                       height: 80,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppTheme.primaryTeal.withOpacity(0.3),
-                        border: Border.all(color: Colors.white.withOpacity(0.3), width: 2),
+                        color: AppTheme.primaryTeal.withValues(alpha: 0.3),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 2),
                       ),
                       child: Center(
                         child: Text(doctor.avatarInitials, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 28)),
@@ -66,7 +68,7 @@ class DoctorProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text(doctor.specialty, style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.7))),
+                    Text(doctor.specialty, style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withValues(alpha: 0.7))),
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -131,24 +133,49 @@ class DoctorProfileScreen extends StatelessWidget {
                   // Action Buttons
                   Row(
                     children: [
-                      if (doctor.offersOnlineConsultation) Expanded(
+                      // Message button
+                      Expanded(
                         child: OutlinedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => AppointmentBookingScreen(doctor: doctor)),
-                            );
+                          onPressed: () async {
+                            try {
+                              final messagingService = MessagingService();
+                              final convo = await messagingService.getOrCreateConversation(
+                                doctorId: doctor.id,
+                                doctorName: doctor.name,
+                                doctorSpecialty: doctor.specialty,
+                              );
+                              if (context.mounted) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ChatScreen(
+                                      conversationId: convo.id,
+                                      receiverId: doctor.id,
+                                      receiverName: doctor.name,
+                                      receiverSpecialty: doctor.specialty,
+                                    ),
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Could not start chat: $e')),
+                                );
+                              }
+                            }
                           },
-                          icon: const Icon(Icons.videocam_outlined, size: 18),
-                          label: const Text('Online'),
+                          icon: const Icon(CupertinoIcons.chat_bubble, size: 18),
+                          label: const Text('Message'),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 14),
-                            side: const BorderSide(color: AppTheme.borderLight),
+                            side: const BorderSide(color: AppTheme.primaryTeal),
+                            foregroundColor: AppTheme.primaryTeal,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           ),
                         ),
                       ),
-                      if (doctor.offersOnlineConsultation) const SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         flex: 2,
                         child: ElevatedButton.icon(
@@ -248,7 +275,7 @@ class DoctorProfileScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: available ? AppTheme.statusGreen.withOpacity(0.1) : AppTheme.bgSecondary,
+              color: available ? AppTheme.statusGreen.withValues(alpha: 0.1) : AppTheme.bgSecondary,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -270,9 +297,9 @@ class DoctorProfileScreen extends StatelessWidget {
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: AppTheme.primaryTeal.withOpacity(0.1),
+          color: AppTheme.primaryTeal.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppTheme.primaryTeal.withOpacity(0.3)),
+          border: Border.all(color: AppTheme.primaryTeal.withValues(alpha: 0.3)),
         ),
         child: Text(day, style: theme.textTheme.labelSmall?.copyWith(color: AppTheme.primaryTeal, fontWeight: FontWeight.bold)),
       )).toList(),

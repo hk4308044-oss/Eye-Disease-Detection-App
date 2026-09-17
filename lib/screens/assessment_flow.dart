@@ -9,7 +9,7 @@ import 'assessment/review_screen.dart';
 import 'screening/image_capture_screen.dart';
 
 class AssessmentFlow extends StatefulWidget {
-  const AssessmentFlow({Key? key}) : super(key: key);
+  const AssessmentFlow({super.key});
 
   @override
   _AssessmentFlowState createState() => _AssessmentFlowState();
@@ -74,7 +74,7 @@ class _AssessmentFlowState extends State<AssessmentFlow> {
             // Progress Indicator
             LinearProgressIndicator(
               value: (_currentPage + 1) / _totalPages,
-              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
             ),
             const SizedBox(height: 16),

@@ -114,7 +114,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                 ),
           ),
           const SizedBox(height: 8),
-          ..._options.map(_buildCheckboxOption).toList(),
+          ..._options.map(_buildCheckboxOption),
           if (_selectedOptions.contains("Other")) ...[
             const SizedBox(height: 12),
             TextField(

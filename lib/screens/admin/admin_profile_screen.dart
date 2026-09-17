@@ -54,21 +54,21 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                         backgroundColor: AppTheme.primaryNavy,
                         child: Text(
                           _nameCtrl.text.isNotEmpty ? _nameCtrl.text[0].toUpperCase() : 'A',
-                          style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w800, fontFamily: 'Inter'),
+                          style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700, ),
                         ),
                       ),
                       const SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_nameCtrl.text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                          Text(_nameCtrl.text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                           const SizedBox(height: 4),
-                          Text(_emailCtrl.text, style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                          Text(_emailCtrl.text, style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, )),
                           const SizedBox(height: 6),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(color: AppTheme.primaryTeal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
-                            child: const Text('SUPER ADMIN ROLE', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: AppTheme.primaryTeal, fontFamily: 'Inter')),
+                            child: const Text('SUPER ADMIN ROLE', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppTheme.primaryTeal, )),
                           ),
                         ],
                       ),
@@ -77,25 +77,25 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                   const SizedBox(height: 24),
                   const Divider(),
                   const SizedBox(height: 16),
-                  const Text('Account Identity', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Account Identity', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 12),
                   TextField(controller: _nameCtrl, decoration: const InputDecoration(labelText: 'Display Name')),
                   const SizedBox(height: 12),
                   TextField(controller: _emailCtrl, enabled: false, decoration: const InputDecoration(labelText: 'Email Address (Primary Identity)')),
                   const SizedBox(height: 24),
-                  const Text('Session & Security', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Session & Security', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 12),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: const Icon(Icons.security, color: AppTheme.primaryTeal),
-                    title: const Text('Authentication Method', style: TextStyle(fontSize: 13, fontFamily: 'Inter', fontWeight: FontWeight.w600)),
-                    subtitle: Text('Firebase Auth UID: ${user?.uid ?? "Local"}', style: const TextStyle(fontSize: 12, fontFamily: 'Inter')),
+                    title: const Text('Authentication Method', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    subtitle: Text('Firebase Auth UID: ${user?.uid ?? "Local"}', style: const TextStyle(fontSize: 12, )),
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: const Icon(Icons.verified_user_outlined, color: AppTheme.statusGreen),
-                    title: const Text('Email Verification Status', style: TextStyle(fontSize: 13, fontFamily: 'Inter', fontWeight: FontWeight.w600)),
-                    subtitle: Text(user?.emailVerified == true ? 'Verified Account' : 'Pending Verification', style: const TextStyle(fontSize: 12, fontFamily: 'Inter')),
+                    title: const Text('Email Verification Status', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    subtitle: Text(user?.emailVerified == true ? 'Verified Account' : 'Pending Verification', style: const TextStyle(fontSize: 12, )),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(
@@ -124,8 +124,8 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Admin Portal Sign Out', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
-        content: const Text('Are you sure you want to end your administrative session?', style: TextStyle(fontFamily: 'Inter')),
+        title: const Text('Admin Portal Sign Out', style: TextStyle(fontWeight: FontWeight.w700)),
+        content: const Text('Are you sure you want to end your administrative session?', style: TextStyle()),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
           ElevatedButton(

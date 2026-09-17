@@ -71,7 +71,7 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
                 onPressed: () => _showAddEditContentModal(context, category: currentCat),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  textStyle: const TextStyle(fontSize: 13, fontFamily: 'Inter', fontWeight: FontWeight.w600),
+                  textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
@@ -84,7 +84,7 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
                   indicatorColor: AppTheme.primaryTeal,
                   labelColor: AppTheme.primaryTeal,
                   unselectedLabelColor: AppTheme.textLightSecondary,
-                  labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, fontFamily: 'Inter'),
+                  labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, ),
                   tabs: _categories.map((c) => Tab(text: c.label)).toList(),
                   onTap: (_) => setState(() {}),
                 ),
@@ -93,14 +93,14 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
                     ? const Padding(
                         padding: EdgeInsets.all(40),
                         child: Center(
-                          child: Text('No content items published in this category yet.', style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+                          child: Text('No content items published in this category yet.', style: TextStyle(color: AppTheme.textLightSecondary, )),
                         ),
                       )
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: filtered.length,
-                        separatorBuilder: (_, __) => const Divider(height: 1),
+                        separatorBuilder: (_, _) => const Divider(height: 1),
                         itemBuilder: (context, i) => _buildContentRow(context, filtered[i]),
                       ),
               ],
@@ -132,7 +132,7 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
           Expanded(
             child: Text(
               item.title,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -150,15 +150,14 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
                 color: item.isPublished ? AppTheme.statusGreen : AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
         ],
       ),
       subtitle: Text(
         'Updated: ${DateFormat('dd MMM yyyy').format(item.updatedAt)} • Author: ${item.authorName}\n${item.content}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
@@ -202,7 +201,7 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setStateModal) => AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: Text(item == null ? 'Create Content (${cat.label})' : 'Edit Content', style: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+          title: Text(item == null ? 'Create Content (${cat.label})' : 'Edit Content', style: const TextStyle(fontWeight: FontWeight.w700)),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -214,9 +213,9 @@ class _AdminContentScreenState extends State<AdminContentScreen> with SingleTick
                 TextField(controller: contentCtrl, maxLines: 4, decoration: const InputDecoration(labelText: 'Content Body')),
                 const SizedBox(height: 12),
                 SwitchListTile(
-                  title: const Text('Publish Immediately', style: TextStyle(fontSize: 13, fontFamily: 'Inter')),
+                  title: const Text('Publish Immediately', style: TextStyle(fontSize: 13, )),
                   value: isPublished,
-                  activeColor: AppTheme.primaryTeal,
+                  activeThumbColor: AppTheme.primaryTeal,
                   onChanged: (v) => setStateModal(() => isPublished = v),
                 ),
               ],

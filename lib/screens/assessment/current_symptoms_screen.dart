@@ -7,10 +7,10 @@ class CurrentSymptomsScreen extends StatefulWidget {
   final VoidCallback onNext;
 
   const CurrentSymptomsScreen({
-    Key? key,
+    super.key,
     required this.assessment,
     required this.onNext,
-  }) : super(key: key);
+  });
 
   @override
   _CurrentSymptomsScreenState createState() => _CurrentSymptomsScreenState();
@@ -92,7 +92,7 @@ class _CurrentSymptomsScreenState extends State<CurrentSymptomsScreen> {
                 ),
           ),
           const SizedBox(height: 24),
-          ..._options.map(_buildCheckboxOption).toList(),
+          ..._options.map(_buildCheckboxOption),
           if (_selectedOptions.contains("Other")) ...[
             const SizedBox(height: 12),
             TextField(

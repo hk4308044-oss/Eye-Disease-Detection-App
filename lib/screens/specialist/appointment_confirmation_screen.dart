@@ -31,9 +31,9 @@ class AppointmentConfirmationScreen extends StatelessWidget {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: AppTheme.statusGreen.withOpacity(0.1),
+                  color: AppTheme.statusGreen.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppTheme.statusGreen.withOpacity(0.3), width: 2),
+                  border: Border.all(color: AppTheme.statusGreen.withValues(alpha: 0.3), width: 2),
                 ),
                 child: const Icon(Icons.check_circle_rounded, color: AppTheme.statusGreen, size: 48),
               ),

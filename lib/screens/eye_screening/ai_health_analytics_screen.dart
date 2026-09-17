@@ -15,7 +15,7 @@ class AiHealthAnalyticsScreen extends StatefulWidget {
 
 class _AiHealthAnalyticsScreenState extends State<AiHealthAnalyticsScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animController;
-  bool _isLearnMoreExpanded = false;
+  final bool _isLearnMoreExpanded = false;
   
   // Mock probabilities based on the result
   late Map<String, double> _probabilities;
@@ -213,16 +213,16 @@ class _AiHealthAnalyticsScreenState extends State<AiHealthAnalyticsScreen> with 
               Text(
                 "Primary Finding",
                 style: theme.textTheme.labelMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.6),
+                  color: Colors.white.withValues(alpha: 0.6),
                   letterSpacing: 0.5,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: color.withOpacity(0.5)),
+                  border: Border.all(color: color.withValues(alpha: 0.5)),
                 ),
                 child: Text(
                   _getSeverityLabel().toUpperCase(),
@@ -247,8 +247,8 @@ class _AiHealthAnalyticsScreenState extends State<AiHealthAnalyticsScreen> with 
           Row(
             children: [
               _buildMetric(theme, "AI Confidence", "${widget.result.confidence.toStringAsFixed(1)}%", AppTheme.aiTeal),
-              Container(height: 40, width: 1, color: Colors.white.withOpacity(0.1), margin: const EdgeInsets.symmetric(horizontal: 20)),
-              _buildMetric(theme, "Model", widget.result.modelVersion, Colors.white.withOpacity(0.8)),
+              Container(height: 40, width: 1, color: Colors.white.withValues(alpha: 0.1), margin: const EdgeInsets.symmetric(horizontal: 20)),
+              _buildMetric(theme, "Model", widget.result.modelVersion, Colors.white.withValues(alpha: 0.8)),
             ],
           ),
         ],
@@ -263,7 +263,7 @@ class _AiHealthAnalyticsScreenState extends State<AiHealthAnalyticsScreen> with 
         Text(
           label,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: Colors.white.withOpacity(0.6),
+            color: Colors.white.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 4),
@@ -428,7 +428,7 @@ class _AiHealthAnalyticsScreenState extends State<AiHealthAnalyticsScreen> with 
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: currentColor.withOpacity(0.1),
+                    color: currentColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(_getSeverityIcon(), color: currentColor),

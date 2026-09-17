@@ -7,10 +7,10 @@ class ScreeningReasonScreen extends StatefulWidget {
   final VoidCallback onNext;
 
   const ScreeningReasonScreen({
-    Key? key,
+    super.key,
     required this.assessment,
     required this.onNext,
-  }) : super(key: key);
+  });
 
   @override
   _ScreeningReasonScreenState createState() => _ScreeningReasonScreenState();
@@ -88,7 +88,7 @@ class _ScreeningReasonScreenState extends State<ScreeningReasonScreen> {
                 ),
           ),
           const SizedBox(height: 24),
-          ..._options.map(_buildRadioOption).toList(),
+          ..._options.map(_buildRadioOption),
           if (_selectedOption == "Other") ...[
             const SizedBox(height: 12),
             TextField(

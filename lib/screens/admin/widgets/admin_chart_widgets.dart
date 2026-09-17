@@ -48,7 +48,6 @@ class AdminChartCard extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: AppTheme.primaryNavy,
-                      fontFamily: 'Inter',
                       letterSpacing: -0.2,
                     ),
                   ),
@@ -59,8 +58,7 @@ class AdminChartCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 12,
                         color: AppTheme.textLightSecondary,
-                        fontFamily: 'Inter',
-                      ),
+                        ),
                     ),
                   ],
                 ],
@@ -106,8 +104,7 @@ class CustomLineChart extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 10,
                         color: AppTheme.textLightSecondary,
-                        fontFamily: 'Inter',
-                      ),
+                        ),
                     ))
                 .toList(),
           ),
@@ -226,8 +223,7 @@ class CustomBarChart extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w700,
                   color: AppTheme.primaryNavy,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
               const SizedBox(height: 4),
               AnimatedContainer(
@@ -249,8 +245,7 @@ class CustomBarChart extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 10,
                   color: AppTheme.textLightSecondary,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
             ],
           );
@@ -310,7 +305,6 @@ class CustomDonutChart extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 12,
                           color: AppTheme.primaryNavy,
-                          fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -321,8 +315,7 @@ class CustomDonutChart extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: AppTheme.primaryNavy,
-                        fontFamily: 'Inter',
-                      ),
+                        ),
                     ),
                   ],
                 ),

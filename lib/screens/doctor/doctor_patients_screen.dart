@@ -147,7 +147,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
           border: Border.all(color: AppTheme.borderLight, width: 0.8),
           boxShadow: [
             BoxShadow(
-              color: AppTheme.primaryNavy.withOpacity(0.04),
+              color: AppTheme.primaryNavy.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 3),
             ),
@@ -169,8 +169,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: AppTheme.primaryNavy,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                   const SizedBox(height: 3),
                   Text(
@@ -178,8 +177,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
                     style: const TextStyle(
                       fontSize: 12,
                       color: AppTheme.textLightSecondary,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                   if (patient.symptoms.isNotEmpty) ...[
                     const SizedBox(height: 6),
@@ -201,7 +199,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
                 margin: const EdgeInsets.only(right: 8),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryTeal.withOpacity(0.1),
+                  color: AppTheme.primaryTeal.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -210,8 +208,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: AppTheme.primaryTeal,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
               ),
             const Icon(Icons.chevron_right, color: AppTheme.textLightDisabled, size: 20),
@@ -232,15 +229,14 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
         patient.name.isNotEmpty ? patient.name[0].toUpperCase() : 'P';
     return CircleAvatar(
       radius: 24,
-      backgroundColor: AppTheme.primaryNavy.withOpacity(0.08),
+      backgroundColor: AppTheme.primaryNavy.withValues(alpha: 0.08),
       child: Text(
         initials,
         style: const TextStyle(
           color: AppTheme.primaryNavy,
           fontWeight: FontWeight.w700,
           fontSize: 18,
-          fontFamily: 'Inter',
-        ),
+          ),
       ),
     );
   }
@@ -257,8 +253,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
         style: const TextStyle(
           fontSize: 10,
           color: AppTheme.textLightSecondary,
-          fontFamily: 'Inter',
-        ),
+          ),
       ),
     );
   }
@@ -274,7 +269,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
             Text(
               'No results for "$_search"',
               style: const TextStyle(
-                  color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+                  color: AppTheme.textLightSecondary, ),
             ),
           ],
         ),
@@ -288,7 +283,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: AppTheme.primaryTeal.withOpacity(0.08),
+              color: AppTheme.primaryTeal.withValues(alpha: 0.08),
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.people_outline,
@@ -301,8 +296,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: AppTheme.primaryNavy,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -311,8 +305,7 @@ class _DoctorPatientsScreenState extends State<DoctorPatientsScreen> {
             style: TextStyle(
               fontSize: 13,
               color: AppTheme.textLightSecondary,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
         ],
       ),

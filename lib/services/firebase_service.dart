@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart' as google_sign_in;
 import 'package:flutter/foundation.dart';
-import '../models/screening_record.dart';
 import '../models/eye_screening_result.dart';
 import '../models/user_profile.dart';
 import 'dart:io';
@@ -170,6 +169,7 @@ class FirebaseService {
         'preferredLanguage': profile.preferredLanguage,
         'userGoals': profile.userGoals,
         'hasConsented': profile.hasConsented,
+        'profileImageUrl': profile.profileImageUrl,
       }, SetOptions(merge: true)).timeout(const Duration(seconds: 10));
     } catch (e) {
       throw Exception(_getFriendlyError(e));
@@ -202,10 +202,56 @@ class FirebaseService {
         preferredLanguage: data['preferredLanguage'] ?? 'en',
         userGoals: List<String>.from(data['userGoals'] ?? []),
         hasConsented: data['hasConsented'] ?? false,
+        profileImageUrl: data['profileImageUrl'],
       );
     } catch (e) {
       debugPrint("Error fetching profile: $e");
       return null;
+    }
+  }
+
+  /// Upload profile image to Firebase Storage and update Firestore + Auth
+  Future<String?> uploadProfileImage(dynamic imageData, {String? fileName}) async {
+    final user = currentUser;
+    if (user == null) throw Exception("User not authenticated");
+
+    try {
+      final ref = _storage.ref().child('users/${user.uid}/profile_${DateTime.now().millisecondsSinceEpoch}.jpg');
+      
+      TaskSnapshot uploadTask;
+      if (kIsWeb && imageData is Uint8List) {
+        uploadTask = await ref.putData(imageData, SettableMetadata(contentType: 'image/jpeg'));
+      } else if (imageData is File) {
+        uploadTask = await ref.putFile(imageData);
+      } else {
+        throw Exception("Unsupported image data type");
+      }
+
+      final downloadUrl = await uploadTask.ref.getDownloadURL();
+
+      // Update Firestore user profile with the image URL
+      await _firestore.collection('users').doc(user.uid).set({
+        'profileImageUrl': downloadUrl,
+      }, SetOptions(merge: true));
+
+      // Update Firebase Auth photoURL
+      await user.updatePhotoURL(downloadUrl);
+
+      return downloadUrl;
+    } catch (e) {
+      debugPrint('Error uploading profile image: $e');
+      throw Exception(_getFriendlyError(e));
+    }
+  }
+
+  /// Update the Firebase Auth display name
+  Future<void> updateDisplayName(String name) async {
+    final user = currentUser;
+    if (user == null) throw Exception("User not authenticated");
+    try {
+      await user.updateDisplayName(name);
+    } catch (e) {
+      debugPrint('Error updating display name: $e');
     }
   }
 

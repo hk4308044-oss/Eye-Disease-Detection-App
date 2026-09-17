@@ -49,8 +49,11 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
   }
 
   void _next() {
-    if (_step < 3) setState(() => _step++);
-    else _confirmBooking();
+    if (_step < 3) {
+      setState(() => _step++);
+    } else {
+      _confirmBooking();
+    }
   }
 
   void _confirmBooking() {
@@ -248,10 +251,10 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(DateFormat('EEE').format(date), style: theme.textTheme.labelSmall?.copyWith(color: isSelected ? Colors.white.withOpacity(0.8) : AppTheme.textLightSecondary)),
+                Text(DateFormat('EEE').format(date), style: theme.textTheme.labelSmall?.copyWith(color: isSelected ? Colors.white.withValues(alpha: 0.8) : AppTheme.textLightSecondary)),
                 const SizedBox(height: 4),
                 Text(DateFormat('d').format(date), style: theme.textTheme.titleMedium?.copyWith(color: isSelected ? Colors.white : AppTheme.primaryNavy, fontWeight: FontWeight.bold)),
-                Text(DateFormat('MMM').format(date), style: theme.textTheme.labelSmall?.copyWith(color: isSelected ? Colors.white.withOpacity(0.8) : AppTheme.textLightSecondary)),
+                Text(DateFormat('MMM').format(date), style: theme.textTheme.labelSmall?.copyWith(color: isSelected ? Colors.white.withValues(alpha: 0.8) : AppTheme.textLightSecondary)),
               ],
             ),
           ),

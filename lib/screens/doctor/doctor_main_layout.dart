@@ -124,9 +124,9 @@ class _DoctorMainLayoutState extends State<DoctorMainLayout>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: AppTheme.primaryTeal.withOpacity(0.1),
+              color: AppTheme.primaryTeal.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: AppTheme.primaryTeal.withOpacity(0.3)),
+              border: Border.all(color: AppTheme.primaryTeal.withValues(alpha: 0.3)),
             ),
             child: const Text(
               'Doctor',
@@ -376,7 +376,7 @@ class _NotificationsPanel extends StatelessWidget {
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
                   itemCount: notifications.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                  separatorBuilder: (_, _) => const SizedBox(height: 8),
                   itemBuilder: (context, i) {
                     final n = notifications[i];
                     final isUnread = n['read'] == false;
@@ -390,12 +390,12 @@ class _NotificationsPanel extends StatelessWidget {
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
                           color: isUnread
-                              ? AppTheme.primaryTeal.withOpacity(0.05)
+                              ? AppTheme.primaryTeal.withValues(alpha: 0.05)
                               : const Color(0xFFF8FAFC),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isUnread
-                                ? AppTheme.primaryTeal.withOpacity(0.2)
+                                ? AppTheme.primaryTeal.withValues(alpha: 0.2)
                                 : AppTheme.borderLight,
                           ),
                         ),
@@ -406,7 +406,7 @@ class _NotificationsPanel extends StatelessWidget {
                               width: 36,
                               height: 36,
                               decoration: BoxDecoration(
-                                color: AppTheme.primaryTeal.withOpacity(0.1),
+                                color: AppTheme.primaryTeal.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: const Icon(Icons.notifications_outlined,

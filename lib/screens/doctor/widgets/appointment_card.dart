@@ -4,7 +4,7 @@ import '../../../models/doctor_appointment.dart';
 import '../../../theme/app_theme.dart';
 import 'status_badge.dart';
 
-/// Clinical appointment card using GoogleFonts.manrope typography.
+/// Clinical appointment card using GoogleFonts.plusJakartaSans typography.
 class AppointmentCard extends StatelessWidget {
   final DoctorAppointment appointment;
   final VoidCallback? onTap;
@@ -58,7 +58,7 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         Text(
                           appointment.patientName,
-                          style: GoogleFonts.manrope(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.primaryNavy,
@@ -67,7 +67,7 @@ class AppointmentCard extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           '${appointment.patientAge} yrs • ${appointment.patientGender}',
-                          style: GoogleFonts.manrope(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: AppTheme.textLightSecondary,
@@ -172,7 +172,7 @@ class AppointmentCard extends StatelessWidget {
       backgroundColor: AppTheme.primaryTeal.withValues(alpha: 0.12),
       child: Text(
         initials,
-        style: GoogleFonts.manrope(
+        style: GoogleFonts.plusJakartaSans(
           color: AppTheme.primaryTeal,
           fontWeight: FontWeight.w700,
           fontSize: 16,
@@ -195,7 +195,7 @@ class AppointmentCard extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             label,
-            style: GoogleFonts.manrope(
+            style: GoogleFonts.plusJakartaSans(
               fontSize: 11,
               color: AppTheme.textLightSecondary,
               fontWeight: FontWeight.w600,
@@ -216,7 +216,7 @@ class AppointmentCard extends StatelessWidget {
       ),
       child: Text(
         symptom,
-        style: GoogleFonts.manrope(
+        style: GoogleFonts.plusJakartaSans(
           fontSize: 11,
           color: AppTheme.primaryTeal,
           fontWeight: FontWeight.w600,
@@ -243,7 +243,7 @@ class AppointmentCard extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               label,
-              style: GoogleFonts.manrope(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: 12,
                 color: color,
                 fontWeight: FontWeight.w700,

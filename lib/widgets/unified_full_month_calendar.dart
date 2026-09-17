@@ -86,8 +86,7 @@ class _UnifiedFullMonthCalendarState extends State<UnifiedFullMonthCalendar> {
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: AppTheme.primaryNavy,
-                  fontFamily: 'Inter',
-                ),
+                  ),
               ),
               Row(
                 children: [
@@ -123,8 +122,7 @@ class _UnifiedFullMonthCalendarState extends State<UnifiedFullMonthCalendar> {
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: AppTheme.textLightSecondary,
-                          fontFamily: 'Inter',
-                        ),
+                          ),
                       ),
                     ),
                   ),
@@ -207,8 +205,7 @@ class _UnifiedFullMonthCalendarState extends State<UnifiedFullMonthCalendar> {
                               : isCurrentMonth
                                   ? AppTheme.primaryNavy
                                   : AppTheme.textLightDisabled,
-                          fontFamily: 'Inter',
-                        ),
+                          ),
                       ),
                       if ((eventCount > 0 || isHighlighted) && !isSelected)
                         Positioned(

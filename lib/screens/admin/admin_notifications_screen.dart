@@ -84,10 +84,10 @@ class _AdminNotificationsScreenState extends State<AdminNotificationsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Target Audience', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Target Audience', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
-                    value: _targetRole,
+                    initialValue: _targetRole,
                     decoration: const InputDecoration(border: OutlineInputBorder()),
                     items: const [
                       DropdownMenuItem(value: 'all', child: Text('All Users (Patients & Doctors)')),
@@ -97,7 +97,7 @@ class _AdminNotificationsScreenState extends State<AdminNotificationsScreen> {
                     onChanged: (val) => setState(() => _targetRole = val ?? 'all'),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Specific User UID (Optional)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Specific User UID (Optional)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _targetUidCtrl,
@@ -106,14 +106,14 @@ class _AdminNotificationsScreenState extends State<AdminNotificationsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Notification Title', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Notification Title', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _titleCtrl,
                     decoration: const InputDecoration(hintText: 'e.g. Important System Maintenance Notice'),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Message Body', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  const Text('Message Body', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _bodyCtrl,
@@ -137,18 +137,18 @@ class _AdminNotificationsScreenState extends State<AdminNotificationsScreen> {
                           children: [
                             Icon(Icons.preview_outlined, color: AppTheme.primaryTeal, size: 18),
                             SizedBox(width: 8),
-                            Text('Live App Notification Preview', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.primaryTeal, fontFamily: 'Inter')),
+                            Text('Live App Notification Preview', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.primaryTeal, )),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Text(
                           _titleCtrl.text.isNotEmpty ? _titleCtrl.text : 'Notification Title Placeholder',
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           _bodyCtrl.text.isNotEmpty ? _bodyCtrl.text : 'Notification message content will appear here on user devices.',
-                          style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+                          style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, ),
                         ),
                       ],
                     ),

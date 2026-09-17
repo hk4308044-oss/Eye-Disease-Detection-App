@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/firebase_service.dart';
 import 'auth/email_verification_screen.dart';
 import 'main_layout.dart';
@@ -170,7 +169,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: deepTeal.withOpacity(0.15),
+                                    color: deepTeal.withValues(alpha: 0.15),
                                     width: 1.5,
                                   ),
                                 ),
@@ -182,7 +181,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                       child: Container(
                                         width: 10,
                                         height: 2,
-                                        color: brightCyan.withOpacity(0.5),
+                                        color: brightCyan.withValues(alpha: 0.5),
                                       ),
                                     ),
                                     Positioned(
@@ -210,7 +209,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                   height: 50 + (_pulseController.value * 8),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: brightCyan.withOpacity(0.08),
+                                    color: brightCyan.withValues(alpha: 0.08),
                                   ),
                                 );
                               },
@@ -248,7 +247,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         "VisionAI",
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: deepNavy,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                           letterSpacing: -0.5,
                         ),
                       ),

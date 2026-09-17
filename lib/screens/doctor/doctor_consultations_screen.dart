@@ -80,9 +80,9 @@ class _DoctorConsultationsScreenState
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppTheme.primaryTeal.withOpacity(0.06),
+        color: AppTheme.primaryTeal.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppTheme.primaryTeal.withOpacity(0.2)),
+        border: Border.all(color: AppTheme.primaryTeal.withValues(alpha: 0.2)),
       ),
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,8 +99,7 @@ class _DoctorConsultationsScreenState
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: AppTheme.primaryTeal,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 SizedBox(height: 3),
                 Text(
@@ -113,7 +112,6 @@ class _DoctorConsultationsScreenState
                   style: TextStyle(
                     fontSize: 11,
                     color: AppTheme.primaryTeal,
-                    fontFamily: 'Inter',
                     height: 1.4,
                   ),
                 ),
@@ -131,7 +129,6 @@ class _DoctorConsultationsScreenState
           fontSize: 16,
           fontWeight: FontWeight.w700,
           color: AppTheme.primaryNavy,
-          fontFamily: 'Inter',
           letterSpacing: -0.2,
         ),
       );
@@ -145,13 +142,13 @@ class _DoctorConsultationsScreenState
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isNow
-              ? AppTheme.statusGreen.withOpacity(0.4)
+              ? AppTheme.statusGreen.withValues(alpha: 0.4)
               : AppTheme.borderLight,
           width: isNow ? 1.5 : 0.8,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryNavy.withOpacity(0.05),
+            color: AppTheme.primaryNavy.withValues(alpha: 0.05),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -167,17 +164,16 @@ class _DoctorConsultationsScreenState
                 // Avatar
                 CircleAvatar(
                   radius: 24,
-                  backgroundColor: AppTheme.primaryTeal.withOpacity(0.1),
+                  backgroundColor: AppTheme.primaryTeal.withValues(alpha: 0.1),
                   child: Text(
                     appt.patientName.isNotEmpty
                         ? appt.patientName[0].toUpperCase()
                         : 'P',
                     style: const TextStyle(
                       color: AppTheme.primaryTeal,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       fontSize: 18,
-                      fontFamily: 'Inter',
-                    ),
+                      ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -191,16 +187,14 @@ class _DoctorConsultationsScreenState
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           color: AppTheme.primaryNavy,
-                          fontFamily: 'Inter',
-                        ),
+                          ),
                       ),
                       Text(
                         '${appt.patientAge} yrs • ${appt.patientGender}',
                         style: const TextStyle(
                           fontSize: 12,
                           color: AppTheme.textLightSecondary,
-                          fontFamily: 'Inter',
-                        ),
+                          ),
                       ),
                     ],
                   ),
@@ -210,10 +204,10 @@ class _DoctorConsultationsScreenState
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppTheme.statusGreen.withOpacity(0.1),
+                      color: AppTheme.statusGreen.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                          color: AppTheme.statusGreen.withOpacity(0.3)),
+                          color: AppTheme.statusGreen.withValues(alpha: 0.3)),
                     ),
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
@@ -227,8 +221,7 @@ class _DoctorConsultationsScreenState
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.statusGreen,
-                            fontFamily: 'Inter',
-                          ),
+                            ),
                         ),
                       ],
                     ),
@@ -258,7 +251,6 @@ class _DoctorConsultationsScreenState
                         style: const TextStyle(
                           fontSize: 12,
                           color: AppTheme.primaryNavy,
-                          fontFamily: 'Inter',
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -278,8 +270,7 @@ class _DoctorConsultationsScreenState
                             style: const TextStyle(
                               fontSize: 12,
                               color: AppTheme.textLightSecondary,
-                              fontFamily: 'Inter',
-                            ),
+                              ),
                           ),
                         ),
                       ],
@@ -308,7 +299,6 @@ class _DoctorConsultationsScreenState
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         textStyle: const TextStyle(
                             fontSize: 13,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -327,7 +317,6 @@ class _DoctorConsultationsScreenState
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         textStyle: const TextStyle(
                             fontSize: 13,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -373,16 +362,14 @@ class _DoctorConsultationsScreenState
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppTheme.primaryNavy,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 Text(
                   DateFormat('dd MMM yyyy, hh:mm a').format(appt.scheduledAt),
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppTheme.textLightSecondary,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
               ],
             ),
@@ -404,7 +391,7 @@ class _DoctorConsultationsScreenState
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppTheme.primaryTeal.withOpacity(0.08),
+                color: AppTheme.primaryTeal.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.videocam_outlined,
@@ -417,8 +404,7 @@ class _DoctorConsultationsScreenState
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -427,7 +413,6 @@ class _DoctorConsultationsScreenState
               style: TextStyle(
                 fontSize: 13,
                 color: AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
                 height: 1.5,
               ),
             ),
@@ -496,10 +481,9 @@ class _PatientInfoSheet extends StatelessWidget {
                   'Patient Information',
                   style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     color: AppTheme.primaryNavy,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 const Spacer(),
                 IconButton(
@@ -543,8 +527,7 @@ class _PatientInfoSheet extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 13,
                 color: AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
           Expanded(
@@ -554,8 +537,7 @@ class _PatientInfoSheet extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
         ],
@@ -619,8 +601,7 @@ class _ConsultationSessionScreenState
             color: AppTheme.primaryNavy,
             fontSize: 16,
             fontWeight: FontWeight.w700,
-            fontFamily: 'Inter',
-          ),
+            ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
@@ -678,7 +659,7 @@ class _ConsultationSessionScreenState
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -701,7 +682,7 @@ class _ConsultationSessionScreenState
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.videocam_outlined,
@@ -714,18 +695,16 @@ class _ConsultationSessionScreenState
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 const SizedBox(height: 4),
                 // VIDEO_CALL_INTEGRATION_POINT marker
                 Text(
                   'Integrate Agora / Twilio / Jitsi here',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     fontSize: 12,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
               ],
             ),
@@ -762,8 +741,7 @@ class _ConsultationSessionScreenState
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
-                            ),
+                              ),
                           ),
                         ],
                       ),
@@ -787,7 +765,7 @@ class _ConsultationSessionScreenState
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
+              color: Colors.white.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: Colors.white, size: 20),
@@ -796,10 +774,9 @@ class _ConsultationSessionScreenState
           Text(
             label,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
               fontSize: 10,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
         ],
       ),
@@ -818,17 +795,16 @@ class _ConsultationSessionScreenState
         children: [
           CircleAvatar(
             radius: 24,
-            backgroundColor: AppTheme.primaryTeal.withOpacity(0.1),
+            backgroundColor: AppTheme.primaryTeal.withValues(alpha: 0.1),
             child: Text(
               widget.appt.patientName.isNotEmpty
                   ? widget.appt.patientName[0].toUpperCase()
                   : 'P',
               style: const TextStyle(
                 color: AppTheme.primaryTeal,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: 18,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
           const SizedBox(width: 12),
@@ -842,16 +818,14 @@ class _ConsultationSessionScreenState
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: AppTheme.primaryNavy,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 Text(
                   '${widget.appt.patientAge} yrs • ${widget.appt.patientGender}',
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppTheme.textLightSecondary,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
               ],
             ),
@@ -871,8 +845,7 @@ class _ConsultationSessionScreenState
             fontSize: 15,
             fontWeight: FontWeight.w700,
             color: AppTheme.primaryNavy,
-            fontFamily: 'Inter',
-          ),
+            ),
         ),
         const SizedBox(height: 12),
         TextField(
@@ -912,10 +885,10 @@ class _ConsultationSessionScreenState
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text('End Consultation',
             style:
-                TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+                TextStyle(fontWeight: FontWeight.w700)),
         content: const Text(
           'Are you sure you want to end this consultation and mark it as completed?',
-          style: TextStyle(fontFamily: 'Inter'),
+          style: TextStyle(),
         ),
         actions: [
           TextButton(

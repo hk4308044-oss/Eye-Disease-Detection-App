@@ -8,11 +8,11 @@ class ReviewScreen extends StatelessWidget {
   final Function(int) onEdit;
 
   const ReviewScreen({
-    Key? key,
+    super.key,
     required this.assessment,
     required this.onNext,
     required this.onEdit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class ReviewScreen extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: AppTheme.textDisabled.withOpacity(0.2)),
+        side: BorderSide(color: AppTheme.textDisabled.withValues(alpha: 0.2)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),

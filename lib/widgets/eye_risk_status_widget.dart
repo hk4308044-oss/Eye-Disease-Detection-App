@@ -60,11 +60,11 @@ class _EyeRiskStatusWidgetState extends State<EyeRiskStatusWidget> with SingleTi
   Color get _statusBgColor {
     switch (widget.riskLevel) {
       case RiskLevel.lowRisk:
-        return AppTheme.statusGreen.withOpacity(0.1);
+        return AppTheme.statusGreen.withValues(alpha: 0.1);
       case RiskLevel.attention:
-        return AppTheme.statusYellow.withOpacity(0.1);
+        return AppTheme.statusYellow.withValues(alpha: 0.1);
       case RiskLevel.highRisk:
-        return AppTheme.statusRed.withOpacity(0.1);
+        return AppTheme.statusRed.withValues(alpha: 0.1);
     }
   }
 
@@ -109,10 +109,10 @@ class _EyeRiskStatusWidgetState extends State<EyeRiskStatusWidget> with SingleTi
       decoration: BoxDecoration(
         color: _statusBgColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: _statusColor.withOpacity(0.2)),
+        border: Border.all(color: _statusColor.withValues(alpha: 0.2)),
         boxShadow: [
           BoxShadow(
-            color: _statusColor.withOpacity(0.05),
+            color: _statusColor.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -131,7 +131,7 @@ class _EyeRiskStatusWidgetState extends State<EyeRiskStatusWidget> with SingleTi
                   height: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _statusColor.withOpacity(0.15),
+                    color: _statusColor.withValues(alpha: 0.15),
                   ),
                   child: Center(
                     child: Icon(
@@ -171,7 +171,7 @@ class _EyeRiskStatusWidgetState extends State<EyeRiskStatusWidget> with SingleTi
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.textDisabled.withOpacity(0.3)),
+              border: Border.all(color: AppTheme.textDisabled.withValues(alpha: 0.3)),
             ),
             child: Text(
               "AI Confidence: ${widget.confidenceScore}%",

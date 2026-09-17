@@ -47,7 +47,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
                     child: Center(
                       child: Text(
                         'No online telehealth consultations scheduled.',
-                        style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+                        style: TextStyle(color: AppTheme.textLightSecondary, ),
                       ),
                     ),
                   )
@@ -55,7 +55,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: onlineAppts.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    separatorBuilder: (_, _) => const Divider(height: 1),
                     itemBuilder: (context, i) => _buildConsultationRow(context, onlineAppts[i]),
                   ),
           );
@@ -80,7 +80,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
         children: [
           Text(
             'Patient: ${appt.patientName}',
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
           ),
           const SizedBox(width: 8),
           StatusBadge(status: appt.status, compact: true),
@@ -88,7 +88,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
       ),
       subtitle: Text(
         'Assigned Specialist: Dr. ${appt.doctorName}\nScheduled: ${DateFormat('dd MMM yyyy, hh:mm a').format(appt.scheduledAt)}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
       ),
       trailing: ElevatedButton.icon(
         icon: const Icon(Icons.settings_outlined, size: 14),
@@ -96,7 +96,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
         onPressed: () => _showManageSessionModal(context, appt),
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          textStyle: const TextStyle(fontSize: 12, fontFamily: 'Inter', fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
         ),
       ),
     );
@@ -119,7 +119,7 @@ class _AdminConsultationsScreenState extends State<AdminConsultationsScreen> {
             children: [
               Text(
                 'Manage Telehealth Session: ${appt.patientName}',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
               ),
               const SizedBox(height: 16),
               ListTile(

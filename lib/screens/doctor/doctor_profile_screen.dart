@@ -247,7 +247,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             children: [
               Icon(Icons.lock_outline, color: AppTheme.primaryTeal),
               SizedBox(width: 10),
-              Text('Change Password', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700, fontSize: 18)),
+              Text('Change Password', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
             ],
           ),
           content: SingleChildScrollView(
@@ -436,7 +436,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             children: [
               CircleAvatar(
                 radius: 44,
-                backgroundColor: Colors.white.withOpacity(0.2),
+                backgroundColor: Colors.white.withValues(alpha: 0.2),
                 backgroundImage: _profile?.profileImageUrl != null &&
                         _profile!.profileImageUrl!.isNotEmpty
                     ? NetworkImage(_profile!.profileImageUrl!)
@@ -451,9 +451,8 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 32,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Inter',
-                            ),
+                              fontWeight: FontWeight.w700,
+                              ),
                           )
                         : null,
               ),
@@ -468,7 +467,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                     border: Border.all(color: Colors.white, width: 2),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withValues(alpha: 0.2),
                         blurRadius: 4,
                       ),
                     ],
@@ -484,8 +483,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
               letterSpacing: -0.3,
             ),
           ),
@@ -493,19 +491,17 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
           Text(
             _profile!.specialization,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.75),
+              color: Colors.white.withValues(alpha: 0.75),
               fontSize: 14,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
           const SizedBox(height: 4),
           Text(
             _profile!.qualification,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.55),
+              color: Colors.white.withValues(alpha: 0.55),
               fontSize: 12,
-              fontFamily: 'Inter',
-            ),
+              ),
           ),
           const SizedBox(height: 14),
           // Action buttons
@@ -550,10 +546,10 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
+          color: Colors.white.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(20),
           border:
-              Border.all(color: (color ?? Colors.white).withOpacity(0.3)),
+              Border.all(color: (color ?? Colors.white).withValues(alpha: 0.3)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -566,8 +562,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                 color: color ?? Colors.white,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ],
         ),
@@ -605,7 +600,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                     children: [
                       const Text(
                         'Email Verification Status',
-                        style: TextStyle(fontSize: 11, color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+                        style: TextStyle(fontSize: 11, color: AppTheme.textLightSecondary, ),
                       ),
                       const SizedBox(height: 2),
                       Row(
@@ -613,7 +608,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: isEmailVerified ? AppTheme.statusGreen.withOpacity(0.12) : Colors.amber.withOpacity(0.15),
+                              color: isEmailVerified ? AppTheme.statusGreen.withValues(alpha: 0.12) : Colors.amber.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
@@ -631,8 +626,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                     color: isEmailVerified ? AppTheme.statusGreen : Colors.amber[900],
-                                    fontFamily: 'Inter',
-                                  ),
+                                    ),
                                 ),
                               ],
                             ),
@@ -656,13 +650,13 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                   children: [
                     const Text(
                       'Account Role',
-                      style: TextStyle(fontSize: 11, color: AppTheme.textLightSecondary, fontFamily: 'Inter'),
+                      style: TextStyle(fontSize: 11, color: AppTheme.textLightSecondary, ),
                     ),
                     const SizedBox(height: 2),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: AppTheme.primaryTeal.withOpacity(0.1),
+                        color: AppTheme.primaryTeal.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: const Text(
@@ -671,8 +665,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
                           color: AppTheme.primaryTeal,
-                          fontFamily: 'Inter',
-                        ),
+                          ),
                       ),
                     ),
                   ],
@@ -716,7 +709,6 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
               style: const TextStyle(
                 fontSize: 13,
                 color: AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
                 height: 1.5,
               ),
             ),
@@ -794,8 +786,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
             const SizedBox(height: 12),
             ...children,
@@ -823,8 +814,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
             const SizedBox(height: 16),
             ...children,
@@ -851,8 +841,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                   style: const TextStyle(
                     fontSize: 11,
                     color: AppTheme.textLightSecondary,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
                 Text(
                   value,
@@ -860,8 +849,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     color: AppTheme.primaryNavy,
-                    fontFamily: 'Inter',
-                  ),
+                    ),
                 ),
               ],
             ),
@@ -882,7 +870,6 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
               style: const TextStyle(
                 fontSize: 13,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -934,8 +921,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.primaryNavy,
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -944,7 +930,6 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
               style: TextStyle(
                 fontSize: 13,
                 color: AppTheme.textLightSecondary,
-                fontFamily: 'Inter',
                 height: 1.5,
               ),
             ),
@@ -976,9 +961,9 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text('Sign Out',
-            style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+            style: TextStyle(fontWeight: FontWeight.w700)),
         content: const Text('Are you sure you want to sign out of Doctor Portal?',
-            style: TextStyle(fontFamily: 'Inter')),
+            style: TextStyle()),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),

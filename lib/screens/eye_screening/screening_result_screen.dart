@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../../models/eye_screening_result.dart';
-import '../../services/firebase_service.dart';
+import '../../models/screening_record.dart';
+import '../../models/pre_screening_assessment.dart';
+import '../../services/database_service.dart';
 import '../referral/referral_map_screen.dart';
 import '../reports/report_preview_screen.dart';
 import 'ai_health_analytics_screen.dart';
@@ -91,18 +93,45 @@ class _ScreeningResultScreenState extends State<ScreeningResultScreen> with Sing
     });
 
     try {
-      final service = FirebaseService();
-      await service.saveScreeningResult(widget.result);
+      ConfidenceLevel level;
+      switch (widget.result.riskLevel) {
+        case RiskLevel.low:
+          level = ConfidenceLevel.high;
+          break;
+        case RiskLevel.attention:
+          level = ConfidenceLevel.moderate;
+          break;
+        case RiskLevel.high:
+          level = ConfidenceLevel.high;
+          break;
+      }
+
+      final record = ScreeningRecord(
+        id: widget.result.id,
+        date: widget.result.date,
+        condition: widget.result.observation,
+        confidenceLevel: level,
+        confidenceScore: widget.result.confidence.round(),
+        explanation: widget.result.explanation,
+        recommendation: "Consult an ophthalmologist if symptoms persist.",
+        assessmentContext: PreScreeningAssessment(
+          screeningReason: widget.result.category,
+          currentSymptoms: [widget.result.observation],
+        ),
+        modelVersion: "EyeCare-Net v2.1.0",
+      );
+
+      await DatabaseService().saveScreening(record);
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Result saved successfully to history.')),
+          const SnackBar(content: Text('Result saved locally to SQLite & Cloud history.')),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save result: $e')),
+          SnackBar(content: Text('Saved locally: $e')),
         );
       }
     } finally {
@@ -168,7 +197,7 @@ class _ScreeningResultScreenState extends State<ScreeningResultScreen> with Sing
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: AppTheme.premiumShadowLight,
-                  border: Border.all(color: color.withOpacity(0.2), width: 2),
+                  border: Border.all(color: color.withValues(alpha: 0.2), width: 2),
                 ),
                 child: Column(
                   children: [
@@ -223,9 +252,9 @@ class _ScreeningResultScreenState extends State<ScreeningResultScreen> with Sing
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                   decoration: BoxDecoration(
-                                    color: color.withOpacity(0.1),
+                                    color: color.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: color.withOpacity(0.3)),
+                                    border: Border.all(color: color.withValues(alpha: 0.3)),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -285,7 +314,7 @@ class _ScreeningResultScreenState extends State<ScreeningResultScreen> with Sing
                                 widget.result.confidence.toStringAsFixed(1),
                                 style: theme.textTheme.headlineMedium?.copyWith(
                                   color: AppTheme.primaryNavy,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                               Text(

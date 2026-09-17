@@ -96,19 +96,19 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppTheme.statusRed),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  textStyle: const TextStyle(fontSize: 12, fontFamily: 'Inter', fontWeight: FontWeight.w600),
+                  textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
             child: _isLoading
                 ? const Padding(padding: EdgeInsets.all(40), child: Center(child: CircularProgressIndicator(color: AppTheme.primaryTeal)))
                 : _filtered.isEmpty
-                    ? const Padding(padding: EdgeInsets.all(40), child: Center(child: Text('No AI screening records found.', style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter'))))
+                    ? const Padding(padding: EdgeInsets.all(40), child: Center(child: Text('No AI screening records found.', style: TextStyle(color: AppTheme.textLightSecondary, ))))
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: _filtered.length,
-                        separatorBuilder: (_, __) => const Divider(height: 1),
+                        separatorBuilder: (_, _) => const Divider(height: 1),
                         itemBuilder: (context, i) => _buildScreeningRow(_filtered[i]),
                       ),
           ),
@@ -135,12 +135,12 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
               children: [
                 Text(
                   'Medical Decision-Support Feature Disclaimer',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
                 ),
                 SizedBox(height: 2),
                 Text(
                   'AI screening models provide decision support and triage assistance only. All flagged conditions must be validated by a licensed ophthalmologist or eye specialist.',
-                  style: TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+                  style: TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
                 ),
               ],
             ),
@@ -169,7 +169,7 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
         children: [
           Text(
             result.observation,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
           ),
           const SizedBox(width: 10),
           RiskBadge(riskLevel: result.riskLevel.name),
@@ -177,7 +177,7 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
       ),
       subtitle: Text(
         'Patient: $patientName • Category: ${result.category}\nDate: ${DateFormat('dd MMM yyyy, hh:mm a').format(result.date)} • Confidence: ${(result.confidence * 100).toStringAsFixed(1)}% • Model: ${result.modelVersion}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
       ),
       trailing: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -187,7 +187,7 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
         ),
         child: Text(
           result.processingStatus.toUpperCase(),
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
         ),
       ),
     );
@@ -200,14 +200,14 @@ class _AdminScreeningsScreenState extends State<AdminScreeningsScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Data Retention Policy Action', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+        title: const Text('Data Retention Policy Action', style: TextStyle(fontWeight: FontWeight.w700)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Purge old AI screening records older than specified retention days to comply with data privacy policies.',
-              style: TextStyle(fontSize: 13, fontFamily: 'Inter'),
+              style: TextStyle(fontSize: 13, ),
             ),
             const SizedBox(height: 16),
             TextField(

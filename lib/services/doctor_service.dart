@@ -347,6 +347,12 @@ class DoctorService {
     return records;
   }
 
+  /// Stream of doctor's patients
+  Stream<List<PatientRecord>> streamPatients() async* {
+    final patients = await getMyPatients();
+    yield patients;
+  }
+
   // ─────────────────────────────────────────────
   // AI SCREENING RESULTS (read-only for doctor)
   // ─────────────────────────────────────────────

@@ -160,7 +160,7 @@ class _PreviousConditionsScreenState extends State<PreviousConditionsScreen> {
                   ),
             ),
             const SizedBox(height: 8),
-            ..._conditionOptions.map(_buildCheckboxOption).toList(),
+            ..._conditionOptions.map(_buildCheckboxOption),
             if (_selectedConditions.contains("Other")) ...[
               const SizedBox(height: 12),
               TextField(

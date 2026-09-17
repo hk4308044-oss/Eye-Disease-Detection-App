@@ -408,7 +408,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primaryNavy.withOpacity(0.08),
+                      color: AppTheme.primaryNavy.withValues(alpha: 0.08),
                       blurRadius: 15,
                       offset: const Offset(0, 4),
                     )
@@ -517,7 +517,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: DropdownButtonFormField<String>(
-                  value: ['Male', 'Female', 'Other'].contains(_selectedGender) ? _selectedGender : 'Male',
+                  initialValue: ['Male', 'Female', 'Other'].contains(_selectedGender) ? _selectedGender : 'Male',
                   decoration: const InputDecoration(
                     labelText: "Gender",
                     labelStyle: TextStyle(color: AppTheme.textLightSecondary),
@@ -630,7 +630,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CupertinoSwitch(
             value: value,
             onChanged: onChanged,
-            activeColor: AppTheme.primaryTeal,
+            activeTrackColor: AppTheme.primaryTeal,
           ),
         ],
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../../theme/app_theme.dart';
 import 'camera_screen.dart';
-import 'dart:ui';
 
 class EyeScreeningHome extends StatefulWidget {
   const EyeScreeningHome({super.key});
@@ -77,7 +76,7 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
                   gradient: LinearGradient(
                     colors: [
                       AppTheme.background,
-                      AppTheme.primaryBlue.withOpacity(0.05)
+                      AppTheme.primaryBlue.withValues(alpha: 0.05)
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -161,7 +160,7 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
             borderRadius: BorderRadius.circular(32),
             boxShadow: [
               BoxShadow(
-                color: AppTheme.primaryBlue.withOpacity(0.4),
+                color: AppTheme.primaryBlue.withValues(alpha: 0.4),
                 blurRadius: 24,
                 spreadRadius: 2,
                 offset: const Offset(0, 12),
@@ -176,7 +175,7 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
                 child: Icon(
                   CupertinoIcons.shield_lefthalf_fill,
                   size: 140,
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                 ),
               ),
               Column(
@@ -185,9 +184,9 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
                     ),
                     child: const Icon(CupertinoIcons.viewfinder, color: AppTheme.techTeal, size: 32),
                   ),
@@ -205,7 +204,7 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
                   Text(
                     "General eye health analysis powered by advanced deep learning.",
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -271,7 +270,7 @@ class _EyeScreeningHomeState extends State<EyeScreeningHome> with SingleTickerPr
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(icon, color: color, size: 26),

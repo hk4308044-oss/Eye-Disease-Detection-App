@@ -7,6 +7,11 @@ import 'history/history_screen.dart';
 import 'assessment_flow.dart';
 import 'profile/profile_screen.dart';
 import 'eye_screening/eye_screening_home.dart';
+import 'assistant/ai_assistant_screen.dart';
+import 'education/education_screen.dart';
+import 'specialist/find_specialist_screen.dart';
+import 'specialist/my_appointments_screen.dart';
+import 'messaging/conversations_screen.dart';
 import '../theme/app_theme.dart';
 
 class MainLayout extends StatefulWidget {
@@ -24,6 +29,11 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
     const HomeScreen(),
     const EyeScreeningHome(),
     const HistoryScreen(),
+    const MyAppointmentsScreen(),
+    const AiAssistantScreen(),
+    const ConversationsScreen(),
+    const FindSpecialistScreen(),
+    const EducationScreen(),
     const ProfileScreen(),
   ];
 
@@ -70,33 +80,196 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= 900;
+
     return Scaffold(
       backgroundColor: AppTheme.background,
-      extendBody: true,
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        switchInCurve: Curves.easeOutCubic,
-        switchOutCurve: Curves.easeInCubic,
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.05, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
+      extendBody: !isDesktop,
+      body: Row(
+        children: [
+          if (isDesktop) _buildSidebar(),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(0.05, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  ),
+                );
+              },
+              child: KeyedSubtree(
+                key: ValueKey<int>(_currentIndex),
+                child: _screens[_currentIndex],
+              ),
             ),
-          );
-        },
-        child: KeyedSubtree(
-          key: ValueKey<int>(_currentIndex),
-          child: _screens[_currentIndex],
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: isDesktop ? null : FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: isDesktop ? null : _buildFab(),
+      bottomNavigationBar: isDesktop ? null : _buildBottomNav(),
+    );
+  }
+
+  Widget _buildSidebar() {
+    return Container(
+      width: 260,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          right: BorderSide(color: AppTheme.borderLight, width: 1),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFab(),
-      bottomNavigationBar: _buildBottomNav(),
+      child: Column(
+        children: [
+          // Logo Area
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryBlue.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(CupertinoIcons.eye_solid, color: AppTheme.primaryBlue, size: 28),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'EyeCare AI',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF0F172A),
+                          letterSpacing: -0.5,
+                          ),
+                      ),
+                      Text(
+                        'See Better • Live Brighter',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF64748B),
+                          ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+              _buildSidebarItem(icon: CupertinoIcons.home, label: "Home", index: 0),
+                _buildSidebarItem(icon: CupertinoIcons.viewfinder_circle, label: "Screening", index: 1),
+                _buildSidebarItem(icon: CupertinoIcons.doc_text, label: "My Reports", index: 2),
+                _buildSidebarItem(icon: CupertinoIcons.calendar, label: "Appointments", index: 3),
+                _buildSidebarItem(icon: CupertinoIcons.chat_bubble_2, label: "AI Assistant", index: 4),
+                _buildSidebarItem(icon: CupertinoIcons.envelope, label: "Messages", index: 5),
+                _buildSidebarItem(icon: CupertinoIcons.person_crop_circle_badge_checkmark, label: "Find Specialist", index: 6),
+                _buildSidebarItem(icon: CupertinoIcons.book, label: "Health Education", index: 7),
+                _buildSidebarItem(icon: CupertinoIcons.person, label: "Profile", index: 8),
+              ],
+            ),
+          ),
+          
+          // Bottom area in sidebar if needed
+          const SizedBox(height: 24),
+          _buildSidebarSafetyBadge(),
+          const SizedBox(height: 24),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSidebarItem({required IconData icon, required String label, required int index}) {
+    final isSelected = _currentIndex == index;
+    final color = isSelected ? AppTheme.primaryBlue : const Color(0xFF64748B);
+    final bgColor = isSelected ? const Color(0xFFF1F5F9) : Colors.transparent;
+
+    return InkWell(
+      onTap: () => _onTabTapped(index),
+      borderRadius: BorderRadius.circular(12),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        margin: const EdgeInsets.only(bottom: 4),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 20, color: color),
+            const SizedBox(width: 14),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? const Color(0xFF0F172A) : const Color(0xFF475569),
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSidebarSafetyBadge() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+      ),
+      child: Row(
+        children: [
+          const Icon(CupertinoIcons.shield_fill, color: AppTheme.techTeal, size: 24),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Your privacy matters',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF0F172A),
+                    ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'HIPAA compliant data',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Color(0xFF64748B),
+                    ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -131,7 +304,6 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Inner rotating ring for tech feel
                 Transform.rotate(
                   angle: _fabAnimController.value * 2 * 3.14159,
                   child: Container(
@@ -194,7 +366,7 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
               _buildTabItem(icon: CupertinoIcons.shield, activeIcon: CupertinoIcons.shield_fill, label: "AI Scan", index: 1),
               const SizedBox(width: 56), // Space for FAB
               _buildTabItem(icon: CupertinoIcons.square_list, activeIcon: CupertinoIcons.square_list_fill, label: "History", index: 2),
-              _buildTabItem(icon: CupertinoIcons.person, activeIcon: CupertinoIcons.person_solid, label: "Profile", index: 3),
+              _buildTabItem(icon: CupertinoIcons.person, activeIcon: CupertinoIcons.person_solid, label: "Profile", index: 8),
             ],
           ),
         ),
@@ -209,7 +381,7 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
     required int index,
   }) {
     final isSelected = _currentIndex == index;
-    final color = isSelected ? AppTheme.primaryTeal : AppTheme.textLightDisabled;
+    final color = isSelected ? const Color(0xFF0891B2) : const Color(0xFF94A3B8);
 
     return GestureDetector(
       onTap: () => _onTabTapped(index),
@@ -238,7 +410,6 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
                 color: color,
                 fontSize: 10,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                fontFamily: 'Inter',
                 letterSpacing: 0.1,
               ),
             ),
@@ -250,7 +421,7 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
                 width: 4,
                 height: 4,
                 decoration: const BoxDecoration(
-                  color: AppTheme.primaryTeal,
+                  color: Color(0xFF0891B2),
                   shape: BoxShape.circle,
                 ),
               ),

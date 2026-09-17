@@ -159,10 +159,10 @@ class ReferralMapScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isRecommended ? AppTheme.primaryBlue.withOpacity(0.05) : Colors.white,
+        color: isRecommended ? AppTheme.primaryBlue.withValues(alpha: 0.05) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isRecommended ? AppTheme.primaryBlue.withOpacity(0.3) : AppTheme.borderLight,
+          color: isRecommended ? AppTheme.primaryBlue.withValues(alpha: 0.3) : AppTheme.borderLight,
         ),
       ),
       child: Row(
@@ -203,7 +203,7 @@ class ReferralMapScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(left: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
-                          color: AppTheme.statusYellow.withOpacity(0.2),
+                          color: AppTheme.statusYellow.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
@@ -317,7 +317,7 @@ class _MapRoutePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppTheme.primaryBlue.withOpacity(0.2)
+      ..color = AppTheme.primaryBlue.withValues(alpha: 0.2)
       ..strokeWidth = 6
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;

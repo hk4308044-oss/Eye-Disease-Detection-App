@@ -46,7 +46,7 @@ class DigitalReportScreen extends StatelessWidget {
             icon: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: colorScheme.onBackground.withValues(alpha: 0.05),
+                color: colorScheme.onSurface.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.download, color: colorScheme.onSurface, size: 18),
@@ -68,7 +68,7 @@ class DigitalReportScreen extends StatelessWidget {
             icon: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: colorScheme.onBackground.withValues(alpha: 0.05),
+                color: colorScheme.onSurface.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.print, color: colorScheme.onSurface, size: 18),
@@ -96,7 +96,7 @@ class DigitalReportScreen extends StatelessWidget {
             color: colorScheme.surface,
             borderRadius: BorderRadius.circular(32),
             boxShadow: AppTheme.premiumShadowLight,
-            border: Border.all(color: colorScheme.onSurface.withOpacity(0.05)),
+            border: Border.all(color: colorScheme.onSurface.withValues(alpha: 0.05)),
           ),
           padding: const EdgeInsets.all(32),
           child: Column(
@@ -267,7 +267,7 @@ class DigitalReportScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 10,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     color: AppTheme.statusYellow, // Amber 700
                     height: 1.2,
                     letterSpacing: 0.5,
@@ -319,7 +319,7 @@ class DigitalReportScreen extends StatelessWidget {
         Text(
           "TECHNICAL INDICATORS",
           style: theme.textTheme.labelSmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.4),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
             letterSpacing: 1,
           ),
         ),

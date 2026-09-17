@@ -175,9 +175,9 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: primaryTeal.withOpacity(0.05),
+                              color: primaryTeal.withValues(alpha: 0.05),
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: primaryTeal.withOpacity(0.1)),
+                              border: Border.all(color: primaryTeal.withValues(alpha: 0.1)),
                             ),
                             child: Row(
                               children: [
@@ -186,7 +186,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                                 Expanded(
                                   child: Text(
                                     "For best results, use good lighting and keep the eye clearly visible.",
-                                    style: TextStyle(color: primaryNavy.withOpacity(0.8), fontSize: 13, height: 1.4),
+                                    style: TextStyle(color: primaryNavy.withValues(alpha: 0.8), fontSize: 13, height: 1.4),
                                   ),
                                 ),
                               ],
@@ -215,7 +215,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 10),
           )
@@ -230,7 +230,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
               CameraPreview(_cameraController!)
             else
               Center(
-                child: Icon(CupertinoIcons.camera_fill, color: Colors.white.withOpacity(0.2), size: 64),
+                child: Icon(CupertinoIcons.camera_fill, color: Colors.white.withValues(alpha: 0.2), size: 64),
               ),
             CustomPaint(
               painter: EyeGuidePainter(),
@@ -242,7 +242,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Row(
@@ -262,10 +262,10 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.9),
+                    color: Colors.green.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 8, offset: const Offset(0, 4))
+                      BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 8, offset: const Offset(0, 4))
                     ]
                   ),
                   child: const Text("Optimal Distance", style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
@@ -285,10 +285,10 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.black.withOpacity(0.05)),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 10),
           )
@@ -330,7 +330,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
             icon: const Icon(CupertinoIcons.photo, color: slateGrey),
             label: const Text("Upload from Gallery", style: TextStyle(color: slateGrey, fontSize: 16, fontWeight: FontWeight.w600)),
             style: OutlinedButton.styleFrom(
-              side: BorderSide(color: slateGrey.withOpacity(0.3)),
+              side: BorderSide(color: slateGrey.withValues(alpha: 0.3)),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
           ),
@@ -379,7 +379,7 @@ class EyeGuidePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.6)
+      ..color = Colors.white.withValues(alpha: 0.6)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
 
@@ -399,7 +399,7 @@ class EyeGuidePainter extends CustomPainter {
     
     // Draw subtle crosshairs
     final dashPaint = Paint()
-      ..color = Colors.white.withOpacity(0.4)
+      ..color = Colors.white.withValues(alpha: 0.4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
       

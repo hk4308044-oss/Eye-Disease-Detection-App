@@ -141,7 +141,7 @@ class _OnboardingFlowScreenState extends State<OnboardingFlowScreen> {
             _stepTitles[_currentPage],
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               color: deepNavy,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
               letterSpacing: -0.5,
             ),
           ),

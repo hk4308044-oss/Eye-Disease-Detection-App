@@ -68,21 +68,19 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> with TickerProv
       final firebaseService = FirebaseService();
       final user = firebaseService.currentUser;
       
-      if (user != null) {
-        final profile = UserProfile(
-          id: user.uid,
-          name: user.displayName ?? "User",
-          age: 30, // Default or pick from somewhere
-          gender: "Not specified",
-          wearsGlasses: _wearsGlasses,
-          familyHistory: false, // We just asked but didn't store state. Assuming false for now.
-          averageScreenTimeHours: _screenTime.toInt(),
-          commonSymptoms: _selectedSymptoms.toList(),
-          hasConsented: true,
-        );
-        
-        await dbService.saveUserProfile(profile);
-      }
+      final profile = UserProfile(
+        id: user?.uid ?? "local_user",
+        name: user?.displayName ?? "User",
+        age: 30,
+        gender: "Not specified",
+        wearsGlasses: _wearsGlasses,
+        familyHistory: false,
+        averageScreenTimeHours: _screenTime.toInt(),
+        commonSymptoms: _selectedSymptoms.toList(),
+        hasConsented: true,
+      );
+      
+      await dbService.saveUserProfile(profile);
     } catch (e) {
       // Ignore error and proceed to home anyway for fallback
       debugPrint("Error saving profile: $e");
@@ -147,7 +145,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> with TickerProv
               height: 6,
               width: _currentStep >= index ? 24 : 12,
               decoration: BoxDecoration(
-                color: _currentStep >= index ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.1),
+                color: _currentStep >= index ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(3),
               ),
             );
@@ -189,7 +187,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> with TickerProv
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             activeTrackColor: colorScheme.primary,
-                            inactiveTrackColor: colorScheme.onSurface.withOpacity(0.1),
+                            inactiveTrackColor: colorScheme.onSurface.withValues(alpha: 0.1),
                             thumbColor: colorScheme.primary,
                             trackHeight: 8,
                           ),
@@ -244,9 +242,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> with TickerProv
                             decoration: BoxDecoration(
                               color: isSelected ? colorScheme.primary : colorScheme.surface,
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.1)),
+                              border: Border.all(color: isSelected ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.1)),
                               boxShadow: isSelected ? [
-                                BoxShadow(color: colorScheme.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))
+                                BoxShadow(color: colorScheme.primary.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4))
                               ] : [],
                             ),
                             child: Text(
@@ -327,19 +325,19 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> with TickerProv
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primary.withOpacity(0.05) : colorScheme.surface,
+          color: isSelected ? colorScheme.primary.withValues(alpha: 0.05) : colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.1),
+            color: isSelected ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.1),
             width: isSelected ? 2 : 1,
           ),
           boxShadow: isSelected ? [
-            BoxShadow(color: colorScheme.primary.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4))
+            BoxShadow(color: colorScheme.primary.withValues(alpha: 0.1), blurRadius: 10, offset: const Offset(0, 4))
           ] : [],
         ),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.5), size: 28),
+            Icon(icon, color: isSelected ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.5), size: 28),
             const SizedBox(width: 16),
             Expanded(
               child: Text(

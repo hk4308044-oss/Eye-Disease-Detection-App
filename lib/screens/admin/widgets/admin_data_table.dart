@@ -52,9 +52,8 @@ class AdminDataTableCard extends StatelessWidget {
                         title,
                         style: const TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                           color: AppTheme.primaryNavy,
-                          fontFamily: 'Inter',
                           letterSpacing: -0.3,
                         ),
                       ),
@@ -65,8 +64,7 @@ class AdminDataTableCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 12,
                             color: AppTheme.textLightSecondary,
-                            fontFamily: 'Inter',
-                          ),
+                            ),
                         ),
                       ],
                     ],

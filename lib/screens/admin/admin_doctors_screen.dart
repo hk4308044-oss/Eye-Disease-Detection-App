@@ -55,7 +55,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
                 onPressed: () => _showAddDoctorDialog(context),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  textStyle: const TextStyle(fontSize: 13, fontFamily: 'Inter', fontWeight: FontWeight.w600),
+                  textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
@@ -68,7 +68,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
                   indicatorColor: AppTheme.primaryTeal,
                   labelColor: AppTheme.primaryTeal,
                   unselectedLabelColor: AppTheme.textLightSecondary,
-                  labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, fontFamily: 'Inter'),
+                  labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, ),
                   tabs: _tabs.map((t) => Tab(text: t)).toList(),
                   onTap: (_) => setState(() {}),
                 ),
@@ -110,7 +110,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
             children: [
               Icon(Icons.medical_services_outlined, size: 48, color: AppTheme.textLightDisabled),
               SizedBox(height: 12),
-              Text('No doctor records match the criteria.', style: TextStyle(color: AppTheme.textLightSecondary, fontFamily: 'Inter')),
+              Text('No doctor records match the criteria.', style: TextStyle(color: AppTheme.textLightSecondary, )),
             ],
           ),
         ),
@@ -121,7 +121,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: filtered.length,
-      separatorBuilder: (_, __) => const Divider(height: 1),
+      separatorBuilder: (_, _) => const Divider(height: 1),
       itemBuilder: (context, i) => _buildDoctorRow(context, filtered[i]),
     );
   }
@@ -140,7 +140,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
         child: doctor.profileImageUrl == null || doctor.profileImageUrl!.isEmpty
             ? Text(
                 doctor.name.isNotEmpty ? doctor.name[0].toUpperCase() : 'D',
-                style: const TextStyle(color: AppTheme.primaryNavy, fontWeight: FontWeight.w800, fontSize: 18, fontFamily: 'Inter'),
+                style: const TextStyle(color: AppTheme.primaryNavy, fontWeight: FontWeight.w700, fontSize: 18, ),
               )
             : null,
       ),
@@ -148,7 +148,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
         children: [
           Text(
             'Dr. ${doctor.name}',
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, fontFamily: 'Inter'),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, ),
           ),
           const SizedBox(width: 8),
           Container(
@@ -166,15 +166,14 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
                 color: isApproved ? AppTheme.statusGreen : const Color(0xFFD97706),
-                fontFamily: 'Inter',
-              ),
+                ),
             ),
           ),
         ],
       ),
       subtitle: Text(
         '${doctor.specialization} • ${doctor.qualification}\nClinic: ${doctor.clinicName} • License: ${doctor.licenseNumber.isNotEmpty ? doctor.licenseNumber : "Pending"}',
-        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, fontFamily: 'Inter', height: 1.4),
+        style: const TextStyle(fontSize: 12, color: AppTheme.textLightSecondary, height: 1.4),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -187,7 +186,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.statusGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                textStyle: const TextStyle(fontSize: 12, fontFamily: 'Inter', fontWeight: FontWeight.w700),
+                textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
               ),
             ),
             const SizedBox(width: 6),
@@ -197,7 +196,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
                 foregroundColor: AppTheme.statusRed,
                 side: const BorderSide(color: AppTheme.statusRed),
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                textStyle: const TextStyle(fontSize: 12, fontFamily: 'Inter', fontWeight: FontWeight.w700),
+                textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
               ),
               child: const Text('Reject'),
             ),
@@ -235,7 +234,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Add Specialist Doctor', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+        title: const Text('Add Specialist Doctor', style: TextStyle(fontWeight: FontWeight.w700)),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -288,11 +287,11 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Reject Doctor Verification', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w700)),
+        title: const Text('Reject Doctor Verification', style: TextStyle(fontWeight: FontWeight.w700)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Provide reason for rejecting Dr. ${doctor.name}:', style: const TextStyle(fontFamily: 'Inter')),
+            Text('Provide reason for rejecting Dr. ${doctor.name}:', style: const TextStyle()),
             const SizedBox(height: 12),
             TextField(controller: reasonCtrl, maxLines: 2, decoration: const InputDecoration(hintText: 'e.g. Invalid medical license number')),
           ],
@@ -335,7 +334,7 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
               child: Row(
                 children: [
-                  Text('Dr. ${doctor.name} Credentials', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppTheme.primaryNavy, fontFamily: 'Inter')),
+                  Text('Dr. ${doctor.name} Credentials', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: AppTheme.primaryNavy, )),
                   const Spacer(),
                   IconButton(icon: const Icon(Icons.close, color: AppTheme.textLightSecondary), onPressed: () => Navigator.pop(context)),
                 ],
@@ -369,8 +368,8 @@ class _AdminDoctorsScreenState extends State<AdminDoctorsScreen> with SingleTick
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 150, child: Text(label, style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, fontFamily: 'Inter'))),
-          Expanded(child: Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.primaryNavy, fontFamily: 'Inter'))),
+          SizedBox(width: 150, child: Text(label, style: const TextStyle(fontSize: 13, color: AppTheme.textLightSecondary, ))),
+          Expanded(child: Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.primaryNavy, ))),
         ],
       ),
     );

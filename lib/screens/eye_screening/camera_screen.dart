@@ -172,7 +172,9 @@ class _CameraScreenState extends State<CameraScreen>
   Future<void> _captureImage() async {
     if (_controller == null ||
         !_controller!.value.isInitialized ||
-        _isCapturing) return;
+        _isCapturing) {
+      return;
+    }
     setState(() => _isCapturing = true);
 
     await _captureFlash.forward();
@@ -228,11 +230,11 @@ class _CameraScreenState extends State<CameraScreen>
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (_, anim, __) => AiImagePreparationScreen(
+        pageBuilder: (_, anim, _) => AiImagePreparationScreen(
           imagePath: _capturedImagePath!,
           category: widget.category,
         ),
-        transitionsBuilder: (_, anim, __, child) =>
+        transitionsBuilder: (_, anim, _, child) =>
             FadeTransition(opacity: anim, child: child),
         transitionDuration: const Duration(milliseconds: 400),
       ),
@@ -281,16 +283,16 @@ class _CameraScreenState extends State<CameraScreen>
             children: [
               AnimatedBuilder(
                 animation: _pulseAnim,
-                builder: (_, __) => Container(
+                builder: (_, _) => Container(
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppTheme.aiTeal
-                        .withOpacity(0.06 + 0.06 * _pulseAnim.value),
+                        .withValues(alpha: 0.06 + 0.06 * _pulseAnim.value),
                     border: Border.all(
                       color: AppTheme.aiTeal
-                          .withOpacity(0.30 + 0.30 * _pulseAnim.value),
+                          .withValues(alpha: 0.30 + 0.30 * _pulseAnim.value),
                       width: 1.5,
                     ),
                   ),
@@ -312,7 +314,7 @@ class _CameraScreenState extends State<CameraScreen>
               Text(
                 'Setting up AI Eye Screening',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.35),
+                  color: Colors.white.withValues(alpha: 0.35),
                   fontSize: 13,
                 ),
               ),
@@ -323,7 +325,7 @@ class _CameraScreenState extends State<CameraScreen>
                 child: CircularProgressIndicator(
                   strokeWidth: 2.5,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                      AppTheme.aiTeal.withOpacity(0.6)),
+                      AppTheme.aiTeal.withValues(alpha: 0.6)),
                 ),
               ),
             ],
@@ -355,7 +357,7 @@ class _CameraScreenState extends State<CameraScreen>
                         height: 88,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.04),
+                          color: Colors.white.withValues(alpha: 0.04),
                           border:
                               Border.all(color: Colors.white10, width: 1.5),
                         ),
@@ -385,10 +387,10 @@ class _CameraScreenState extends State<CameraScreen>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           decoration: BoxDecoration(
-                            color: AppTheme.aiTeal.withOpacity(0.08),
+                            color: AppTheme.aiTeal.withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
-                                color: AppTheme.aiTeal.withOpacity(0.25)),
+                                color: AppTheme.aiTeal.withValues(alpha: 0.25)),
                           ),
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
@@ -466,7 +468,7 @@ class _CameraScreenState extends State<CameraScreen>
               radius: 1.0,
               colors: [
                 Colors.transparent,
-                Colors.black.withOpacity(0.60),
+                Colors.black.withValues(alpha: 0.60),
               ],
             ),
           ),
@@ -475,10 +477,10 @@ class _CameraScreenState extends State<CameraScreen>
         // Flash overlay
         AnimatedBuilder(
           animation: _captureFlash,
-          builder: (_, __) => _captureFlash.value > 0
+          builder: (_, _) => _captureFlash.value > 0
               ? Container(
                   color:
-                      Colors.white.withOpacity(_captureFlash.value * 0.65))
+                      Colors.white.withValues(alpha: _captureFlash.value * 0.65))
               : const SizedBox.shrink(),
         ),
 
@@ -529,9 +531,9 @@ class _CameraScreenState extends State<CameraScreen>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.35),
+                  color: Colors.black.withValues(alpha: 0.35),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white.withOpacity(0.10)),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -544,7 +546,7 @@ class _CameraScreenState extends State<CameraScreen>
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.aiTeal.withOpacity(0.6),
+                            color: AppTheme.aiTeal.withValues(alpha: 0.6),
                             blurRadius: 8,
                           ),
                         ],
@@ -554,7 +556,7 @@ class _CameraScreenState extends State<CameraScreen>
                     Text(
                       'AI EYE SCREENING',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.92),
+                        color: Colors.white.withValues(alpha: 0.92),
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1.6,
@@ -581,7 +583,7 @@ class _CameraScreenState extends State<CameraScreen>
         'Position your eye inside the guide for a clear image.',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white.withOpacity(0.60),
+          color: Colors.white.withValues(alpha: 0.60),
           fontSize: 13.5,
           height: 1.5,
           letterSpacing: 0.15,
@@ -601,24 +603,24 @@ class _CameraScreenState extends State<CameraScreen>
             // Animated ellipse border
             AnimatedBuilder(
               animation: _cornerGlowAnim,
-              builder: (_, __) {
+              builder: (_, _) {
                 final detected = _eyeDetected;
                 final borderColor = detected
                     ? AppTheme.aiTeal
-                    : Colors.white.withOpacity(0.45);
+                    : Colors.white.withValues(alpha: 0.45);
                 return Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: borderColor.withOpacity(
-                          0.50 + 0.40 * _cornerGlowAnim.value),
+                      color: borderColor.withValues(
+                          alpha: 0.50 + 0.40 * _cornerGlowAnim.value),
                       width: detected ? 2.5 : 1.8,
                     ),
                     boxShadow: detected
                         ? [
                             BoxShadow(
-                              color: AppTheme.aiTeal.withOpacity(
-                                  0.15 + 0.12 * _cornerGlowAnim.value),
+                              color: AppTheme.aiTeal.withValues(
+                                  alpha: 0.15 + 0.12 * _cornerGlowAnim.value),
                               blurRadius: 28,
                               spreadRadius: 6,
                             ),
@@ -635,7 +637,7 @@ class _CameraScreenState extends State<CameraScreen>
             // Horizontal scan line
             AnimatedBuilder(
               animation: _scanLineAnim,
-              builder: (_, __) {
+              builder: (_, _) {
                 final t = _scanLineAnim.value;
                 final top = _guideDiameter * t;
                 return Positioned(
@@ -650,13 +652,13 @@ class _CameraScreenState extends State<CameraScreen>
                         gradient: LinearGradient(
                           colors: [
                             Colors.transparent,
-                            AppTheme.aiTeal.withOpacity(0.85),
+                            AppTheme.aiTeal.withValues(alpha: 0.85),
                             Colors.transparent,
                           ],
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.aiTeal.withOpacity(0.4),
+                            color: AppTheme.aiTeal.withValues(alpha: 0.4),
                             blurRadius: 10,
                           ),
                         ],
@@ -671,17 +673,17 @@ class _CameraScreenState extends State<CameraScreen>
             Center(
               child: AnimatedBuilder(
                 animation: _pulseAnim,
-                builder: (_, __) {
+                builder: (_, _) {
                   final s = 5.0 + 2.0 * _pulseAnim.value;
                   return Container(
                     width: s,
                     height: s,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppTheme.aiTeal.withOpacity(0.65),
+                      color: AppTheme.aiTeal.withValues(alpha: 0.65),
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.aiTeal.withOpacity(0.45),
+                          color: AppTheme.aiTeal.withValues(alpha: 0.45),
                           blurRadius: 10,
                         ),
                       ],
@@ -714,11 +716,11 @@ class _CameraScreenState extends State<CameraScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 5),
                       decoration: BoxDecoration(
-                        color: AppTheme.statusGreen.withOpacity(0.88),
+                        color: AppTheme.statusGreen.withValues(alpha: 0.88),
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.statusGreen.withOpacity(0.35),
+                            color: AppTheme.statusGreen.withValues(alpha: 0.35),
                             blurRadius: 12,
                           ),
                         ],
@@ -764,33 +766,33 @@ class _CameraScreenState extends State<CameraScreen>
           padding: const EdgeInsets.all(inset),
           child: AnimatedBuilder(
             animation: _cornerGlowAnim,
-            builder: (_, __) => Container(
+            builder: (_, _) => Container(
               width: len,
               height: len,
               decoration: BoxDecoration(
                 border: Border(
                   top: top
                       ? BorderSide(
-                          color: AppTheme.aiTeal.withOpacity(
-                              0.6 + 0.35 * _cornerGlowAnim.value),
+                          color: AppTheme.aiTeal.withValues(
+                              alpha: 0.6 + 0.35 * _cornerGlowAnim.value),
                           width: thickness)
                       : BorderSide.none,
                   bottom: !top
                       ? BorderSide(
-                          color: AppTheme.aiTeal.withOpacity(
-                              0.6 + 0.35 * _cornerGlowAnim.value),
+                          color: AppTheme.aiTeal.withValues(
+                              alpha: 0.6 + 0.35 * _cornerGlowAnim.value),
                           width: thickness)
                       : BorderSide.none,
                   left: left
                       ? BorderSide(
-                          color: AppTheme.aiTeal.withOpacity(
-                              0.6 + 0.35 * _cornerGlowAnim.value),
+                          color: AppTheme.aiTeal.withValues(
+                              alpha: 0.6 + 0.35 * _cornerGlowAnim.value),
                           width: thickness)
                       : BorderSide.none,
                   right: !left
                       ? BorderSide(
-                          color: AppTheme.aiTeal.withOpacity(
-                              0.6 + 0.35 * _cornerGlowAnim.value),
+                          color: AppTheme.aiTeal.withValues(
+                              alpha: 0.6 + 0.35 * _cornerGlowAnim.value),
                           width: thickness)
                       : BorderSide.none,
                 ),
@@ -820,9 +822,9 @@ class _CameraScreenState extends State<CameraScreen>
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.06),
+              color: Colors.white.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withOpacity(0.08)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
             ),
             child: Row(
               children: [
@@ -837,7 +839,7 @@ class _CameraScreenState extends State<CameraScreen>
                 Container(
                   width: 1,
                   height: 36,
-                  color: Colors.white.withOpacity(0.08),
+                  color: Colors.white.withValues(alpha: 0.08),
                 ),
                 // Quality
                 Expanded(child: _statusItem(
@@ -874,7 +876,7 @@ class _CameraScreenState extends State<CameraScreen>
             Text(
               label,
               style: TextStyle(
-                  color: Colors.white.withOpacity(0.55), fontSize: 11),
+                  color: Colors.white.withValues(alpha: 0.55), fontSize: 11),
             ),
           ],
         ),
@@ -902,7 +904,7 @@ class _CameraScreenState extends State<CameraScreen>
               height: 3,
               child: LinearProgressIndicator(
                 value: score,
-                backgroundColor: Colors.white.withOpacity(0.08),
+                backgroundColor: Colors.white.withValues(alpha: 0.08),
                 valueColor: AlwaysStoppedAnimation<Color>(color),
               ),
             ),
@@ -923,9 +925,9 @@ class _CameraScreenState extends State<CameraScreen>
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.05),
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.white.withOpacity(0.08)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
             ),
             child: Row(
               children: [
@@ -933,7 +935,7 @@ class _CameraScreenState extends State<CameraScreen>
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppTheme.aiTeal.withOpacity(0.12),
+                    color: AppTheme.aiTeal.withValues(alpha: 0.12),
                   ),
                   child: const Icon(Icons.lightbulb_outline_rounded,
                       color: AppTheme.aiTeal, size: 14),
@@ -943,7 +945,7 @@ class _CameraScreenState extends State<CameraScreen>
                   child: Text(
                     'For best results, use good lighting and keep the eye clearly visible.',
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.58),
+                      color: Colors.white.withValues(alpha: 0.58),
                       fontSize: 11.5,
                       height: 1.4,
                       letterSpacing: 0.1,
@@ -969,7 +971,7 @@ class _CameraScreenState extends State<CameraScreen>
             onTap: _isCapturing ? null : _captureImage,
             child: AnimatedBuilder(
               animation: _pulseAnim,
-              builder: (_, __) => Container(
+              builder: (_, _) => Container(
                 width: 76,
                 height: 76,
                 decoration: BoxDecoration(
@@ -981,18 +983,18 @@ class _CameraScreenState extends State<CameraScreen>
                   ),
                   border: Border.all(
                     color: Colors.white
-                        .withOpacity(0.3 + 0.15 * _pulseAnim.value),
+                        .withValues(alpha: 0.3 + 0.15 * _pulseAnim.value),
                     width: 3.5,
                   ),
                   boxShadow: [
                     BoxShadow(
                       color: AppTheme.aiTeal
-                          .withOpacity(0.20 + 0.15 * _pulseAnim.value),
+                          .withValues(alpha: 0.20 + 0.15 * _pulseAnim.value),
                       blurRadius: 24 + 8 * _pulseAnim.value,
                       spreadRadius: 2,
                     ),
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.30),
+                      color: Colors.black.withValues(alpha: 0.30),
                       blurRadius: 14,
                       offset: const Offset(0, 4),
                     ),
@@ -1010,7 +1012,7 @@ class _CameraScreenState extends State<CameraScreen>
           Text(
             'Capture Eye',
             style: TextStyle(
-              color: Colors.white.withOpacity(0.70),
+              color: Colors.white.withValues(alpha: 0.70),
               fontSize: 12,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.6,
@@ -1029,21 +1031,21 @@ class _CameraScreenState extends State<CameraScreen>
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.07),
+                    color: Colors.white.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(14),
                     border:
-                        Border.all(color: Colors.white.withOpacity(0.12)),
+                        Border.all(color: Colors.white.withValues(alpha: 0.12)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.photo_library_rounded,
-                          color: Colors.white.withOpacity(0.75), size: 18),
+                          color: Colors.white.withValues(alpha: 0.75), size: 18),
                       const SizedBox(width: 10),
                       Text(
                         'Upload from Gallery',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.80),
+                          color: Colors.white.withValues(alpha: 0.80),
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.2,
@@ -1077,10 +1079,10 @@ class _CameraScreenState extends State<CameraScreen>
             height: circle ? 42 : null,
             padding: circle ? null : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.35),
+              color: Colors.black.withValues(alpha: 0.35),
               shape: circle ? BoxShape.circle : BoxShape.rectangle,
               borderRadius: circle ? null : BorderRadius.circular(20),
-              border: Border.all(color: Colors.white.withOpacity(0.10)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
             ),
             child: Center(child: child),
           ),
@@ -1159,7 +1161,7 @@ class _CameraScreenState extends State<CameraScreen>
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Colors.black.withOpacity(0.40),
+                                Colors.black.withValues(alpha: 0.40),
                                 Colors.transparent,
                               ],
                             ),
@@ -1182,10 +1184,10 @@ class _CameraScreenState extends State<CameraScreen>
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 14, vertical: 5),
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.40),
+                                  color: Colors.black.withValues(alpha: 0.40),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                      color: Colors.white.withOpacity(0.12)),
+                                      color: Colors.white.withValues(alpha: 0.12)),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -1199,7 +1201,7 @@ class _CameraScreenState extends State<CameraScreen>
                                         boxShadow: [
                                           BoxShadow(
                                             color: AppTheme.statusGreen
-                                                .withOpacity(0.5),
+                                                .withValues(alpha: 0.5),
                                             blurRadius: 6,
                                           ),
                                         ],
@@ -1235,7 +1237,7 @@ class _CameraScreenState extends State<CameraScreen>
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                Colors.black.withOpacity(0.35),
+                                Colors.black.withValues(alpha: 0.35),
                                 Colors.transparent,
                               ],
                             ),
@@ -1257,10 +1259,10 @@ class _CameraScreenState extends State<CameraScreen>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                 decoration: BoxDecoration(
-                  color: AppTheme.aiTeal.withOpacity(0.07),
+                  color: AppTheme.aiTeal.withValues(alpha: 0.07),
                   borderRadius: BorderRadius.circular(14),
                   border:
-                      Border.all(color: AppTheme.aiTeal.withOpacity(0.18)),
+                      Border.all(color: AppTheme.aiTeal.withValues(alpha: 0.18)),
                 ),
                 child: Row(
                   children: [
@@ -1268,7 +1270,7 @@ class _CameraScreenState extends State<CameraScreen>
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppTheme.aiTeal.withOpacity(0.12),
+                        color: AppTheme.aiTeal.withValues(alpha: 0.12),
                       ),
                       child: const Icon(Icons.shield_outlined,
                           color: AppTheme.aiTeal, size: 14),
@@ -1302,22 +1304,22 @@ class _CameraScreenState extends State<CameraScreen>
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.06),
+                          color: Colors.white.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                              color: Colors.white.withOpacity(0.12)),
+                              color: Colors.white.withValues(alpha: 0.12)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.replay_rounded,
-                                color: Colors.white.withOpacity(0.65),
+                                color: Colors.white.withValues(alpha: 0.65),
                                 size: 18),
                             const SizedBox(width: 8),
                             Text(
                               'Retake',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.70),
+                                color: Colors.white.withValues(alpha: 0.70),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1346,7 +1348,7 @@ class _CameraScreenState extends State<CameraScreen>
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
-                              color: AppTheme.aiTeal.withOpacity(0.30),
+                              color: AppTheme.aiTeal.withValues(alpha: 0.30),
                               blurRadius: 18,
                               offset: const Offset(0, 5),
                             ),
@@ -1391,7 +1393,7 @@ class _CrosshairPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.18)
+      ..color = Colors.white.withValues(alpha: 0.18)
       ..strokeWidth = 0.8;
 
     final cx = size.width / 2;
