@@ -1,5 +1,7 @@
-import 'package:tflite_flutter/tflite_flutter.dart';
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import '../models/pre_screening_assessment.dart';
 import '../models/screening_record.dart';
@@ -13,22 +15,17 @@ class ModelNotLoadedException implements Exception {
 }
 
 class AIService {
-  static const String modelVersion = "EyeCare-Net TFLite v2.1.0";
-  static const String _modelPath = "assets/models/eyecare_model.tflite";
-  
-  Interpreter? _interpreter;
-  bool _isModelLoaded = false;
+  static const String modelVersion = "FastAPI Backend API v1.0";
 
-  /// Loads the TFLite model from assets.
+  String get _resolvedApiUrl {
+    if (kIsWeb) return 'http://127.0.0.1:8000';
+    if (Platform.isAndroid) return 'http://10.0.2.2:8000';
+    return 'http://127.0.0.1:8000';
+  }
+
+  /// Model is now hosted on the backend.
   Future<void> initModel() async {
-    try {
-      _interpreter = await Interpreter.fromAsset(_modelPath);
-      _isModelLoaded = true;
-      debugPrint("TFLite Model loaded successfully.");
-    } catch (e) {
-      _isModelLoaded = false;
-      debugPrint("TFLite asset not found, running with native offline rule-engine fallback.");
-    }
+    debugPrint("Backend API is ready to use.");
   }
 
   /// Simulates an image quality check.
@@ -39,56 +36,67 @@ class AIService {
     return true; 
   }
 
-  /// Performs the AI screening process using the local model/rule engine.
+  /// Performs the AI screening process by connecting to the FastAPI backend.
   Future<ScreeningRecord> analyzeImage({
     required String imagePath,
     required PreScreeningAssessment assessment,
   }) async {
-    // Attempt model load if not already attempted
-    if (!_isModelLoaded && _interpreter == null) {
-      await initModel();
-    }
-
-    // Processing delay simulating AI model inference
-    await Future.delayed(const Duration(seconds: 2));
-
-    // Calculate score based on user assessment context and image analysis
-    final symptomsCount = assessment.currentSymptoms.length;
-    final hasBlurriness = assessment.currentSymptoms.any((s) => s.toLowerCase().contains('blur'));
-    final hasPain = assessment.currentSymptoms.any((s) => s.toLowerCase().contains('pain'));
-
-    ConfidenceLevel level = ConfidenceLevel.high;
-    int confidenceScore = 92;
-    String condition = "Normal / Healthy";
-    String explanation = "No high-risk visual patterns detected. Correlated with mild or zero symptom reporting.";
-    String recommendation = "Continue routine eye hygiene and annual check-ups.";
-
-    if (symptomsCount >= 3 || hasBlurriness) {
-      level = ConfidenceLevel.moderate;
-      confidenceScore = 86;
-      condition = "Mild Eye Strain / Dry Eyes";
-      explanation = "Patterns associated with digital eye fatigue and mild tear film instability observed.";
-      recommendation = "Follow the 20-20-20 rule, use hydrating eye drops, and consult an eye care provider if symptoms persist.";
-    } else if (hasPain) {
-      level = ConfidenceLevel.high;
-      confidenceScore = 94;
-      condition = "Ocular Irritation Detected";
-      explanation = "Reported pain and visual indicators suggest acute ocular strain or surface irritation.";
-      recommendation = "Avoid rubbing your eyes. Schedule a professional ophthalmology exam.";
-    }
-
-    return ScreeningRecord(
-      id: const Uuid().v4(),
-      date: DateTime.now(),
-      imageUrl: imagePath,
-      condition: condition,
-      confidenceLevel: level,
-      confidenceScore: confidenceScore,
-      explanation: explanation,
-      recommendation: recommendation,
-      assessmentContext: assessment,
-      modelVersion: modelVersion,
+    final uri = Uri.parse('$_resolvedApiUrl/predict');
+    
+    final request = http.MultipartRequest('POST', uri);
+    
+    // Attach the file
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'file',
+        imagePath,
+      ),
     );
+
+    try {
+      final response = await request.send();
+      
+      if (response.statusCode == 200) {
+        final responseData = await response.stream.bytesToString();
+        final jsonResult = jsonDecode(responseData);
+        
+        final prediction = jsonResult['prediction'];
+        final topClass = prediction['top_class'] as String;
+        final confidenceDouble = (prediction['confidence'] as num).toDouble();
+        final confidenceScore = (confidenceDouble * 100).round();
+        
+        ConfidenceLevel level;
+        if (confidenceScore >= 90) {
+          level = ConfidenceLevel.high;
+        } else if (confidenceScore >= 70) {
+          level = ConfidenceLevel.moderate;
+        } else {
+          level = ConfidenceLevel.low;
+        }
+        
+        String explanation = "AI detected patterns consistent with $topClass.";
+        String recommendation = topClass.toLowerCase().contains("normal") 
+            ? "Continue routine eye hygiene and annual check-ups."
+            : "Please consult an eye care provider for a professional evaluation.";
+        
+        return ScreeningRecord(
+          id: const Uuid().v4(),
+          date: DateTime.now(),
+          imageUrl: imagePath,
+          condition: topClass,
+          confidenceLevel: level,
+          confidenceScore: confidenceScore,
+          explanation: explanation,
+          recommendation: recommendation,
+          assessmentContext: assessment,
+          modelVersion: modelVersion,
+        );
+      } else {
+        throw Exception("Server returned error: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Failed to connect to backend: $e");
+    }
   }
 }
 

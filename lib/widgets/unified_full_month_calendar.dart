@@ -65,15 +65,18 @@ class _UnifiedFullMonthCalendarState extends State<UnifiedFullMonthCalendar> {
 
     final totalGridCells = ((leadingDaysCount + daysInMonth) / 7).ceil() * 7;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceLight,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppTheme.borderLight, width: 1),
-        boxShadow: AppTheme.subtleShadowLight,
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppTheme.surfaceLight,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppTheme.borderLight, width: 1),
+            boxShadow: AppTheme.subtleShadowLight,
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Header: Month/Year & Nav Buttons
@@ -227,6 +230,6 @@ class _UnifiedFullMonthCalendarState extends State<UnifiedFullMonthCalendar> {
           ),
         ],
       ),
-    );
+    )));
   }
 }

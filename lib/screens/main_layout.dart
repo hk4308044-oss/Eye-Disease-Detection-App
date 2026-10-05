@@ -80,7 +80,8 @@ class _MainLayoutState extends State<MainLayout> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width >= 900;
+    // Force the desktop (sidebar) layout on all screen sizes as requested
+    final isDesktop = true; 
 
     return Scaffold(
       backgroundColor: AppTheme.background,

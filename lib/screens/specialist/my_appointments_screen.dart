@@ -23,11 +23,50 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> with Single
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+    
+    // Populate with some dummy data to ensure all tabs have content to show
     _appointments = widget.newAppointment != null ? [widget.newAppointment!] : [];
+    
+    final dummyAppointments = [
+      AppointmentModel(
+        id: 'a1_dummy',
+        doctor: DemoSpecialistData.allDoctors[0],
+        dateTime: DateTime.now().add(const Duration(days: 1)),
+        consultationType: 'Clinic Visit',
+        status: 'upcoming',
+      ),
+      AppointmentModel(
+        id: 'a2_dummy',
+        doctor: DemoSpecialistData.allDoctors[1],
+        dateTime: DateTime.now().subtract(const Duration(days: 2)),
+        consultationType: 'Online Consultation',
+        status: 'completed',
+      ),
+      AppointmentModel(
+        id: 'a3_dummy',
+        doctor: DemoSpecialistData.allDoctors[2],
+        dateTime: DateTime.now().subtract(const Duration(days: 5)),
+        consultationType: 'Clinic Visit',
+        status: 'cancelled',
+      ),
+    ];
+    
+    if (_appointments.isEmpty) {
+      _appointments.addAll(dummyAppointments);
+    } else {
+      // Add completed and cancelled dummies if we only have the new appointment
+      _appointments.addAll(dummyAppointments.where((a) => a.status != 'upcoming'));
+    }
+  }
+
+  void _handleTabSelection() {
+    setState(() {});
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_handleTabSelection);
     _tabController.dispose();
     super.dispose();
   }
@@ -134,14 +173,15 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> with Single
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-            child: UnifiedFullMonthCalendar(
-              onDateSelected: (date) {
-                // Handle date selection filtering
-              },
+          if (_tabController.index == 0)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+              child: UnifiedFullMonthCalendar(
+                onDateSelected: (date) {
+                  // Handle date selection filtering
+                },
+              ),
             ),
-          ),
           Expanded(
             child: TabBarView(
               controller: _tabController,

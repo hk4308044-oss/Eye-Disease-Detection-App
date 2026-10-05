@@ -77,18 +77,23 @@ class FirebaseService {
   /// Initiates Google Sign-In
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      final google_sign_in.GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return null; // User canceled the sign-in flow
+      if (kIsWeb) {
+        final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        return await _auth.signInWithPopup(googleProvider);
+      } else {
+        final google_sign_in.GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+        if (googleUser == null) {
+          return null; // User canceled the sign-in flow
+        }
+
+        final google_sign_in.GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        final OAuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        return await _auth.signInWithCredential(credential);
       }
-
-      final google_sign_in.GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      return await _auth.signInWithCredential(credential);
     } catch (e) {
       throw Exception(_getFriendlyError(e));
     }
@@ -143,7 +148,9 @@ class FirebaseService {
 
   /// Signs out the current user
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
+    if (!kIsWeb) {
+      await _googleSignIn.signOut();
+    }
     await _auth.signOut();
   }
 

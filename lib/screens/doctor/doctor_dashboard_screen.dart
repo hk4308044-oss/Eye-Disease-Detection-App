@@ -51,62 +51,89 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= 1100;
+
     return Scaffold(
-      backgroundColor: AppTheme.bgLight,
-      body: BackgroundBlobs(
-        showTopLeft: true,
-        showTopRight: true,
-        showBottomLeft: true,
-        child: SafeArea(
-          bottom: false,
-          child: RefreshIndicator(
-            onRefresh: _loadData,
-            color: AppTheme.primaryTeal,
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-              slivers: [
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate([
-                      // 1. TOP HEADER & GREETING
-                      _buildTopHeader(),
-                      const SizedBox(height: 20),
-
-                      // 2. OVERVIEW / STATISTICS GRID
-                      _buildSectionHeader('Clinical Overview', null),
-                      const SizedBox(height: 12),
-                      _buildStatsGrid(),
-                      const SizedBox(height: 24),
-
-                      // 3. QUICK ACTIONS BAR
-                      _buildSectionHeader('Clinical Quick Actions', null),
-                      const SizedBox(height: 12),
-                      _buildQuickActions(),
-                      const SizedBox(height: 24),
-
-                      // 4. PENDING PATIENT REQUESTS
-                      _buildSectionHeader('Pending Patient Requests', () {
-                        widget.onNavigateTab?.call(1);
-                      }),
-                      const SizedBox(height: 12),
-                      _buildPendingRequests(),
-                      const SizedBox(height: 24),
-
-                      // 5. TODAY'S & UPCOMING APPOINTMENTS SCHEDULE
-                      _buildSectionHeader("Today's & Upcoming Schedule", () {
-                        widget.onNavigateTab?.call(1);
-                      }),
-                      const SizedBox(height: 12),
-                      _buildUpcomingAppointments(),
-
-                      // Bottom padding for nav bar
-                      const SizedBox(height: 100),
-                    ]),
-                  ),
+      backgroundColor: const Color(0xFFF8FAFC),
+      body: SafeArea(
+        bottom: false,
+        child: RefreshIndicator(
+          onRefresh: _loadData,
+          color: AppTheme.primaryTeal,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
+            child: isDesktop 
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left Column
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildTopHeader(),
+                          const SizedBox(height: 20),
+                          _buildSectionHeader('Clinical Overview', null),
+                          const SizedBox(height: 12),
+                          _buildStatsGrid(),
+                          const SizedBox(height: 24),
+                          _buildSectionHeader('Pending Patient Requests', () {
+                            widget.onNavigateTab?.call(1);
+                          }),
+                          const SizedBox(height: 12),
+                          _buildPendingRequests(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    // Right Column
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildSectionHeader('Clinical Quick Actions', null),
+                          const SizedBox(height: 12),
+                          _buildQuickActions(),
+                          const SizedBox(height: 24),
+                          _buildSectionHeader("Today's & Upcoming Schedule", () {
+                            widget.onNavigateTab?.call(1);
+                          }),
+                          const SizedBox(height: 12),
+                          _buildUpcomingAppointments(),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTopHeader(),
+                    const SizedBox(height: 20),
+                    _buildSectionHeader('Clinical Overview', null),
+                    const SizedBox(height: 12),
+                    _buildStatsGrid(),
+                    const SizedBox(height: 24),
+                    _buildSectionHeader('Clinical Quick Actions', null),
+                    const SizedBox(height: 12),
+                    _buildQuickActions(),
+                    const SizedBox(height: 24),
+                    _buildSectionHeader('Pending Patient Requests', () {
+                      widget.onNavigateTab?.call(1);
+                    }),
+                    const SizedBox(height: 12),
+                    _buildPendingRequests(),
+                    const SizedBox(height: 24),
+                    _buildSectionHeader("Today's & Upcoming Schedule", () {
+                      widget.onNavigateTab?.call(1);
+                    }),
+                    const SizedBox(height: 12),
+                    _buildUpcomingAppointments(),
+                  ],
                 ),
-              ],
-            ),
           ),
         ),
       ),

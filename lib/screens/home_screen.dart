@@ -98,6 +98,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= 1100;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
@@ -113,49 +115,77 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 110.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 1. Top Header (Profile info, Notification bell, Badges)
-                _buildFadeSlide(_buildTopHeader(), 0.0),
-                const SizedBox(height: 20),
-
-                // 2. Eye Health Overview Card ("Your Vision Our Priority")
-                _buildFadeSlide(_buildHeroCard(context), 0.15),
-                const SizedBox(height: 20),
-
-                // 3. Four Summary Metrics (Total Screenings, Appointments, Health Status, Risk Level)
-                _buildFadeSlide(_buildSummaryMetrics(), 0.25),
-                const SizedBox(height: 24),
-
-                // 4. Quick Actions
-                _buildFadeSlide(_buildQuickActionsHeader(), 0.35),
-                const SizedBox(height: 12),
-                _buildFadeSlide(_buildQuickActionsGrid(context), 0.4),
-                const SizedBox(height: 24),
-
-                // 5. Recent Screening Results
-                _buildFadeSlide(_buildRecentScreeningsHeader(context), 0.5),
-                const SizedBox(height: 12),
-                _buildFadeSlide(_buildRecentScreeningsList(context), 0.55),
-                const SizedBox(height: 24),
-
-                // 6. Upcoming Appointment Card
-                _buildFadeSlide(_buildUpcomingAppointmentCard(context), 0.65),
-                const SizedBox(height: 20),
-
-                // 7. Health Insights / Educational Section ("Did You Know?")
-                _buildFadeSlide(_buildDidYouKnowCard(context), 0.7),
-                const SizedBox(height: 20),
-
-                // 8. Your Eye Health Journey Stepper
-                _buildFadeSlide(_buildEyeHealthJourney(), 0.75),
-                const SizedBox(height: 20),
-
-                // 9. Footer Quote Card ("Clear Vision Brighter Future")
-                _buildFadeSlide(_buildFooterBanner(), 0.8),
-              ],
-            ),
+            child: isDesktop 
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left Column
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildFadeSlide(_buildTopHeader(), 0.0),
+                          const SizedBox(height: 20),
+                          _buildFadeSlide(_buildHeroCard(context), 0.15),
+                          const SizedBox(height: 20),
+                          _buildFadeSlide(_buildSummaryMetrics(), 0.25),
+                          const SizedBox(height: 24),
+                          _buildFadeSlide(_buildRecentScreeningsHeader(context), 0.5),
+                          const SizedBox(height: 12),
+                          _buildFadeSlide(_buildRecentScreeningsList(context), 0.55),
+                          const SizedBox(height: 20),
+                          _buildFadeSlide(_buildEyeHealthJourney(), 0.75),
+                          const SizedBox(height: 20),
+                          _buildFadeSlide(_buildFooterBanner(), 0.8),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    // Right Column
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildFadeSlide(_buildQuickActionsHeader(), 0.35),
+                          const SizedBox(height: 12),
+                          _buildFadeSlide(_buildQuickActionsGrid(context), 0.4),
+                          const SizedBox(height: 24),
+                          _buildFadeSlide(_buildUpcomingAppointmentCard(context), 0.65),
+                          const SizedBox(height: 20),
+                          _buildFadeSlide(_buildDidYouKnowCard(context), 0.7),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildFadeSlide(_buildTopHeader(), 0.0),
+                    const SizedBox(height: 20),
+                    _buildFadeSlide(_buildHeroCard(context), 0.15),
+                    const SizedBox(height: 20),
+                    _buildFadeSlide(_buildSummaryMetrics(), 0.25),
+                    const SizedBox(height: 24),
+                    _buildFadeSlide(_buildQuickActionsHeader(), 0.35),
+                    const SizedBox(height: 12),
+                    _buildFadeSlide(_buildQuickActionsGrid(context), 0.4),
+                    const SizedBox(height: 24),
+                    _buildFadeSlide(_buildRecentScreeningsHeader(context), 0.5),
+                    const SizedBox(height: 12),
+                    _buildFadeSlide(_buildRecentScreeningsList(context), 0.55),
+                    const SizedBox(height: 24),
+                    _buildFadeSlide(_buildUpcomingAppointmentCard(context), 0.65),
+                    const SizedBox(height: 20),
+                    _buildFadeSlide(_buildDidYouKnowCard(context), 0.7),
+                    const SizedBox(height: 20),
+                    _buildFadeSlide(_buildEyeHealthJourney(), 0.75),
+                    const SizedBox(height: 20),
+                    _buildFadeSlide(_buildFooterBanner(), 0.8),
+                  ],
+                ),
           ),
         ),
       ),
